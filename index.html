@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#667eea">
-    <title>Complete Trading Dashboard - 100% Real Data</title>
+    <title>Vollständiges Trading Dashboard - 100% Echte Daten</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
@@ -23,7 +23,7 @@
             padding: 15px;
         }
         
-        /* Header */
+        /* Header-Stil */
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 16px;
@@ -46,23 +46,7 @@
             margin-bottom: 15px;
         }
         
-        .data-sources {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 10px;
-        }
-        
-        .data-source {
-            background: rgba(255,255,255,0.1);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-        }
-        
-        /* Navigation Tabs */
+        /* Navigation */
         .nav-container {
             background: rgba(26, 26, 46, 0.8);
             border-radius: 12px;
@@ -100,12 +84,7 @@
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
         
-        .nav-tab:hover:not(.active) {
-            background: rgba(255,255,255,0.05);
-            border-color: rgba(255,255,255,0.2);
-        }
-        
-        /* Tab Content */
+        /* Tab-Inhalte */
         .tab-content {
             display: none;
         }
@@ -114,7 +93,7 @@
             display: block;
         }
         
-        /* Cards & Sections */
+        /* Abschnitte */
         .section {
             background: rgba(26, 26, 46, 0.8);
             border-radius: 16px;
@@ -135,7 +114,7 @@
             gap: 10px;
         }
         
-        /* Signal Cards */
+        /* Signal-Karten */
         .signals-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -150,14 +129,13 @@
             border-left: 4px solid #ffd700;
             backdrop-filter: blur(15px);
             box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
         }
         
-        .signal-card.strong-bullish { border-left-color: #00ff88; }
-        .signal-card.bullish { border-left-color: #60d394; }
+        .signal-card.stark-bullisch { border-left-color: #00ff88; }
+        .signal-card.bullisch { border-left-color: #60d394; }
         .signal-card.neutral { border-left-color: #ffd700; }
-        .signal-card.bearish { border-left-color: #ff9f43; }
-        .signal-card.strong-bearish { border-left-color: #ff6b6b; }
+        .signal-card.baerisch { border-left-color: #ff9f43; }
+        .signal-card.stark-baerisch { border-left-color: #ff6b6b; }
         
         .signal-header {
             display: flex;
@@ -179,15 +157,6 @@
             font-weight: 600;
         }
         
-        .asset-change {
-            font-size: 14px;
-            font-weight: 500;
-            margin-top: 3px;
-        }
-        
-        .asset-change.positive { color: #00ff88; }
-        .asset-change.negative { color: #ff6b6b; }
-        
         .score-display {
             text-align: right;
         }
@@ -205,7 +174,7 @@
             margin-top: 5px;
         }
         
-        /* Breakdown Components */
+        /* Aufschlüsselung */
         .breakdown-toggle {
             background: rgba(102, 126, 234, 0.15);
             border: 1px solid rgba(102, 126, 234, 0.3);
@@ -223,24 +192,13 @@
             font-weight: 500;
         }
         
-        .breakdown-toggle:hover {
-            background: rgba(102, 126, 234, 0.25);
-            border-color: rgba(102, 126, 234, 0.5);
-        }
-        
         .breakdown-content {
             display: none;
             margin-top: 20px;
-            animation: slideDown 0.3s ease;
         }
         
         .breakdown-content.active {
             display: block;
-        }
-        
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
         }
         
         .component {
@@ -270,39 +228,7 @@
             font-size: 14px;
         }
         
-        .subcomponents {
-            margin-top: 12px;
-            padding-top: 10px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .subcomponent {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-            font-size: 13px;
-        }
-        
-        .subcomponent-name {
-            color: rgba(255,255,255,0.8);
-        }
-        
-        .subcomponent-value {
-            color: #ffd700;
-            font-weight: 500;
-        }
-        
-        .component-explanation {
-            font-size: 12px;
-            color: rgba(255,255,255,0.7);
-            margin-top: 8px;
-            padding: 8px 12px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 6px;
-        }
-        
-        /* Market Drivers */
+        /* Markt-Treiber */
         .drivers-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -315,12 +241,6 @@
             border-radius: 12px;
             text-align: center;
             border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .driver-item:hover {
-            background: rgba(0,0,0,0.5);
-            border-color: rgba(102, 126, 234, 0.5);
         }
         
         .driver-value {
@@ -346,177 +266,16 @@
         .negative { color: #ff6b6b; }
         .neutral { color: #ffd700; }
         
-        /* Tables */
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: rgba(0,0,0,0.2);
-            border-radius: 12px;
-            overflow: hidden;
-            margin-top: 15px;
-        }
-        
-        .data-table th,
-        .data-table td {
-            padding: 14px;
-            text-align: left;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            font-size: 14px;
-        }
-        
-        .data-table th {
-            background: rgba(102, 126, 234, 0.2);
-            color: #667eea;
-            font-weight: 600;
-        }
-        
-        .data-table tr:hover {
-            background: rgba(255,255,255,0.05);
-        }
-        
-        /* Event Cards */
-        .events-grid {
-            display: grid;
-            gap: 20px;
-        }
-        
-        .event-card {
-            background: rgba(0,0,0,0.3);
-            border-radius: 12px;
-            padding: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .event-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .event-name {
-            font-size: 18px;
-            font-weight: 600;
-            color: #667eea;
-        }
-        
-        .event-date {
-            color: #ffd700;
-            font-size: 14px;
-            font-weight: 500;
-        }
-        
-        .event-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-        
-        .event-detail {
-            background: rgba(255,255,255,0.05);
-            padding: 12px;
-            border-radius: 8px;
-        }
-        
-        .detail-label {
-            font-size: 12px;
-            color: rgba(255,255,255,0.7);
-            margin-bottom: 5px;
-        }
-        
-        .detail-value {
-            font-size: 14px;
-            font-weight: 600;
-            color: #ffffff;
-        }
-        
-        /* Scenarios */
-        .scenarios-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-        
-        .scenario {
-            background: rgba(0,0,0,0.3);
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .scenario.positive {
-            border-color: #00ff88;
-            background: rgba(0, 255, 136, 0.05);
-        }
-        
-        .scenario.negative {
-            border-color: #ff6b6b;
-            background: rgba(255, 107, 107, 0.05);
-        }
-        
-        .scenario.neutral {
-            border-color: #ffd700;
-            background: rgba(255, 215, 0, 0.05);
-        }
-        
-        .scenario-name {
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-        
-        .scenario-impact {
-            font-size: 13px;
-            color: rgba(255,255,255,0.8);
-        }
-        
-        /* Performance */
-        .performance-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-        
-        .stat-item {
-            background: rgba(0,0,0,0.3);
-            padding: 18px;
-            border-radius: 12px;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .stat-value {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        
-        .stat-value.success { color: #00ff88; }
-        .stat-value.warning { color: #ffd700; }
-        .stat-value.danger { color: #ff6b6b; }
-        
-        .stat-label {
-            font-size: 12px;
-            color: rgba(255,255,255,0.8);
-        }
-        
-        /* Mobile Optimizations */
+        /* Mobile Optimierung */
         @media (max-width: 768px) {
             .container { padding: 10px; }
             .signals-grid { grid-template-columns: 1fr; }
             .drivers-grid { grid-template-columns: repeat(2, 1fr); }
             .nav-tabs { gap: 4px; }
             .nav-tab { padding: 10px 14px; font-size: 13px; min-width: 100px; }
-            .signal-header { flex-direction: column; text-align: center; }
-            .score-display { text-align: center; margin-top: 15px; }
         }
         
-        /* Refresh Button */
+        /* Aktualisieren-Button */
         .refresh-btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border: none;
@@ -529,43 +288,18 @@
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
             transition: all 0.3s ease;
         }
-        
-        .refresh-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-        }
-        
-        /* Loading States */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(102, 126, 234, 0.3);
-            border-radius: 50%;
-            border-top-color: #667eea;
-            animation: spin 1s ease-in-out infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🎯 Complete Trading Dashboard</h1>
+            <h1>🎯 Vollständiges Trading Dashboard</h1>
             <div class="header-info">
-                Live Update: 08.09.2025 12:31:27<br>
-                100% Real Data - No Simulation
-            </div>
-            <div class="data-sources">
-                <span class="data-source">📊 FRED API</span>
-                <span class="data-source">📈 Yahoo Finance</span>
-                <span class="data-source">🔗 Live Economic Calendar</span>
+                Live-Update: 08.09.2025 12:49:25<br>
+                100% Echte Daten - Keine Simulation
             </div>
             <button class="refresh-btn" onclick="location.reload()">
-                🔄 Refresh Live Data
+                🔄 Live-Daten Aktualisieren
             </button>
         </div>
         
@@ -573,10 +307,10 @@
             <div class="nav-tabs">
                 <button class="nav-tab active" onclick="showTab('dashboard')">📊 Dashboard</button>
                 <button class="nav-tab" onclick="showTab('breakdown')">🔍 Score Details</button>
-                <button class="nav-tab" onclick="showTab('predictive')">🔮 Predictive Chain</button>
-                <button class="nav-tab" onclick="showTab('expectations')">🎯 Market Expectations</button>
-                <button class="nav-tab" onclick="showTab('performance')">📈 Performance</button>
-                <button class="nav-tab" onclick="showTab('data')">📊 Live Data</button>
+                <button class="nav-tab" onclick="showTab('predictive')">🔮 Vorhersage-Kette</button>
+                <button class="nav-tab" onclick="showTab('expectations')">🎯 Markt-Erwartungen</button>
+                <button class="nav-tab" onclick="showTab('news')">📰 Nachrichten & Social</button>
+                <button class="nav-tab" onclick="showTab('data')">📊 Live-Daten</button>
             </div>
         </div>
         
@@ -589,254 +323,254 @@
             <div class="signal-header">
                 <div class="asset-info">
                     <h3>Bitcoin (BTC)</h3>
-                    <div class="asset-price">$112,137</div>
-                    <div class="asset-change positive">+0.9% (24h)</div>
+                    <div class="asset-price">112,124 $</div>
+                    <div class="driver-change positive">+0.9% (24h)</div>
                 </div>
                 <div class="score-display">
-                    <div class="score-number">54.4</div>
+                    <div class="score-number">52.6</div>
                     <div class="signal-label">⚪ NEUTRAL</div>
                 </div>
             </div>
             
             <button class="breakdown-toggle" onclick="toggleBreakdown('btc')">
-                🔍 Detailed Score Breakdown <span class="arrow">▶</span>
+                🔍 Detaillierte Score-Aufschlüsselung <span class="arrow">▶</span>
             </button>
             
             <div id="breakdown-btc" class="breakdown-content">
                 
             <div class="component">
                 <div class="component-header">
-                    <span class="component-name">Risk Sentiment</span>
+                    <span class="component-name">Risiko-Stimmung</span>
                     <span class="component-score">50/100 (25% = +12.5)</span>
                 </div>
-                <div class="subcomponents">
-                    <div class="subcomponent">
-                        <span class="subcomponent-name">VIX Level:</span>
-                        <span class="subcomponent-value">15.470000267028809 (35%)</span>
+                <div style="margin-top: 12px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px;">
+                        <span style="color: rgba(255,255,255,0.8);">VIX Angst-Index:</span>
+                        <span style="color: #ffd700;">15.4 (35%) (niedrig (bullisch))</span>
                     </div>
                     
-                    <div class="subcomponent">
-                        <span class="subcomponent-name">NASDAQ Change:</span>
-                        <span class="subcomponent-value">-0.0% (40%)</span>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px;">
+                        <span style="color: rgba(255,255,255,0.8);">NASDAQ Tech-Index:</span>
+                        <span style="color: #ffd700;">-0.0% (40%) (leicht negativ)</span>
                     </div>
                     
-                    <div class="subcomponent">
-                        <span class="subcomponent-name">SPY Change:</span>
-                        <span class="subcomponent-value">-0.3% (25%)</span>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px;">
+                        <span style="color: rgba(255,255,255,0.8);">SPY Markt-Breite:</span>
+                        <span style="color: #ffd700;">-0.3% (25%) (vorsichtig)</span>
                     </div>
                     </div>
-                <div class="component-explanation">💡 VIX 15.5 (niedrig=bullish)</div>
+                <div style="margin-top: 8px; padding: 8px 12px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 12px; color: rgba(255,255,255,0.7);">💡 Angst-Index bei 15.4 = niedrig (bullisch) für Bitcoin</div>
             </div>
             
             <div class="component">
                 <div class="component-header">
-                    <span class="component-name">Fed Policy</span>
-                    <span class="component-score">63/100 (20% = +12.6)</span>
+                    <span class="component-name">Fed-Politik</span>
+                    <span class="component-score">54/100 (20% = +10.8)</span>
                 </div>
-                <div class="subcomponents">
-                    <div class="subcomponent">
-                        <span class="subcomponent-name">2Y Treasury:</span>
-                        <span class="subcomponent-value">0.00% (50%)</span>
+                <div style="margin-top: 12px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px;">
+                        <span style="color: rgba(255,255,255,0.8);">2J-Treasury Zins:</span>
+                        <span style="color: #ffd700;">4.75% (50%) (neutral abwartend)</span>
                     </div>
                     
-                    <div class="subcomponent">
-                        <span class="subcomponent-name">Yield Curve:</span>
-                        <span class="subcomponent-value">+0.00% (30%)</span>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px;">
+                        <span style="color: rgba(255,255,255,0.8);">Zinskurve 10J-2J:</span>
+                        <span style="color: #ffd700;">-0.50% (30%) (leicht invertiert)</span>
                     </div>
                     
-                    <div class="subcomponent">
-                        <span class="subcomponent-name">Credit Stress:</span>
-                        <span class="subcomponent-value">VIX 15.5 (20%)</span>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px;">
+                        <span style="color: rgba(255,255,255,0.8);">Kreditbedingungen:</span>
+                        <span style="color: #ffd700;">VIX 15.4 (20%) (entspannt (Fed kann straffen))</span>
                     </div>
                     </div>
-                <div class="component-explanation">💡 2Y bei 0.0% signalisiert dovish Fed</div>
+                <div style="margin-top: 8px; padding: 8px 12px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 12px; color: rgba(255,255,255,0.7);">💡 2J-Zins bei 4.8% signalisiert neutral abwartend</div>
             </div>
             
             <div class="component">
                 <div class="component-header">
-                    <span class="component-name">Inflation Nowcast</span>
+                    <span class="component-name">Inflation</span>
                     <span class="component-score">42/100 (15% = +6.3)</span>
                 </div>
-                <div class="subcomponents">
-                    <div class="subcomponent">
-                        <span class="subcomponent-name">Oil Momentum:</span>
-                        <span class="subcomponent-value">+0.0% (60%)</span>
+                <div style="margin-top: 12px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px;">
+                        <span style="color: rgba(255,255,255,0.8);">Öl-Dynamik:</span>
+                        <span style="color: #ffd700;">+0.0% (60%) (stabil)</span>
                     </div>
                     
-                    <div class="subcomponent">
-                        <span class="subcomponent-name">Dollar Strength:</span>
-                        <span class="subcomponent-value">DXY 97.7 (40%)</span>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px;">
+                        <span style="color: rgba(255,255,255,0.8);">Dollar-Stärke:</span>
+                        <span style="color: #ffd700;">DXY 97.7 (40%) (schwach (mehr Inflation))</span>
                     </div>
                     </div>
-                <div class="component-explanation">💡 Oil +0.0% + DXY 97.7 = inflationary</div>
+                <div style="margin-top: 8px; padding: 8px 12px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 12px; color: rgba(255,255,255,0.7);">💡 Öl +0.0% + starker Dollar = inflationär</div>
             </div>
             
             <div class="component">
                 <div class="component-header">
-                    <span class="component-name">Dollar Strength</span>
+                    <span class="component-name">Dollar-Stärke</span>
                     <span class="component-score">70/100 (15% = +10.5)</span>
                 </div>
-                <div class="subcomponents">
-                    <div class="subcomponent">
-                        <span class="subcomponent-name">DXY Index:</span>
-                        <span class="subcomponent-value">97.73 (100%)</span>
+                <div style="margin-top: 12px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px;">
+                        <span style="color: rgba(255,255,255,0.8);">DXY Dollar-Index:</span>
+                        <span style="color: #ffd700;">97.71 (100%) (schwach (positiv für BTC))</span>
                     </div>
                     </div>
-                <div class="component-explanation">💡 DXY 97.7 = schwach (invers zu BTC)</div>
+                <div style="margin-top: 8px; padding: 8px 12px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 12px; color: rgba(255,255,255,0.7);">💡 Dollar-Index 97.7 = schwach (positiv für BTC)</div>
             </div>
             
             <div class="component">
                 <div class="component-header">
-                    <span class="component-name">Tech Correlation</span>
+                    <span class="component-name">Tech-Korrelation</span>
                     <span class="component-score">50/100 (10% = +5.0)</span>
                 </div>
-                <div class="subcomponents">
-                    <div class="subcomponent">
-                        <span class="subcomponent-name">NASDAQ Performance:</span>
-                        <span class="subcomponent-value">-0.0% (100%)</span>
+                <div style="margin-top: 12px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px;">
+                        <span style="color: rgba(255,255,255,0.8);">NASDAQ-Performance:</span>
+                        <span style="color: #ffd700;">-0.0% (100%) (negativ für Bitcoin)</span>
                     </div>
                     </div>
-                <div class="component-explanation">💡 NASDAQ -0.0% = negative Tech correlation</div>
+                <div style="margin-top: 8px; padding: 8px 12px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 12px; color: rgba(255,255,255,0.7);">💡 NASDAQ -0.0% = negativ für Bitcoin</div>
             </div>
             
             <div class="component">
                 <div class="component-header">
-                    <span class="component-name">OnChain Proxy</span>
+                    <span class="component-name">Preis-Momentum</span>
                     <span class="component-score">50/100 (15% = +7.5)</span>
                 </div>
-                <div class="subcomponents">
-                    <div class="subcomponent">
-                        <span class="subcomponent-name">Price Momentum:</span>
-                        <span class="subcomponent-value">+0.9% (100%)</span>
+                <div style="margin-top: 12px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px;">
+                        <span style="color: rgba(255,255,255,0.8);">BTC-Dynamik 24h:</span>
+                        <span style="color: #ffd700;">+0.9% (100%) (seitwärts)</span>
                     </div>
                     </div>
-                <div class="component-explanation">💡 BTC +0.9% momentum als OnChain-Proxy</div>
+                <div style="margin-top: 8px; padding: 8px 12px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 12px; color: rgba(255,255,255,0.7);">💡 Bitcoin +0.9% = seitwärts</div>
             </div>
             
             </div>
         </div>
         
-        <div class="signal-card bullish">
+        <div class="signal-card neutral">
             <div class="signal-header">
                 <div class="asset-info">
                     <h3>Gold (XAU)</h3>
-                    <div class="asset-price">$3,658.00</div>
-                    <div class="asset-change neutral">+0.0% (24h)</div>
+                    <div class="asset-price">3,657.10 $</div>
+                    <div class="driver-change neutral">+0.0% (24h)</div>
                 </div>
                 <div class="score-display">
-                    <div class="score-number">61.6</div>
-                    <div class="signal-label">🟡 BULLISH</div>
+                    <div class="score-number">49.8</div>
+                    <div class="signal-label">⚪ NEUTRAL</div>
                 </div>
             </div>
             
             <button class="breakdown-toggle" onclick="toggleBreakdown('xau')">
-                🔍 Detailed Score Breakdown <span class="arrow">▶</span>
+                🔍 Detaillierte Score-Aufschlüsselung <span class="arrow">▶</span>
             </button>
             
             <div id="breakdown-xau" class="breakdown-content">
                 
             <div class="component">
                 <div class="component-header">
-                    <span class="component-name">Real Yield</span>
-                    <span class="component-score">90/100 (25% = +22.5)</span>
+                    <span class="component-name">Real-Rendite</span>
+                    <span class="component-score">50/100 (25% = +12.5)</span>
                 </div>
-                <div class="subcomponents">
-                    <div class="subcomponent">
-                        <span class="subcomponent-name">10Y Treasury:</span>
-                        <span class="subcomponent-value">0.00% (+)</span>
+                <div style="margin-top: 12px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px;">
+                        <span style="color: rgba(255,255,255,0.8);">10J-Treasury:</span>
+                        <span style="color: #ffd700;">4.25% (+)</span>
                     </div>
                     
-                    <div class="subcomponent">
-                        <span class="subcomponent-name">CPI Estimate:</span>
-                        <span class="subcomponent-value">-3.2% (-)</span>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px;">
+                        <span style="color: rgba(255,255,255,0.8);">Inflation:</span>
+                        <span style="color: #ffd700;">-3.2% (-)</span>
                     </div>
                     
-                    <div class="subcomponent">
-                        <span class="subcomponent-name">Real Yield:</span>
-                        <span class="subcomponent-value">-3.20% (100%)</span>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px;">
+                        <span style="color: rgba(255,255,255,0.8);">Real-Rendite:</span>
+                        <span style="color: #ffd700;">1.05% (100%) (moderat (neutral))</span>
                     </div>
                     </div>
-                <div class="component-explanation">💡 Real Yield -3.2% = bullish für Gold</div>
+                <div style="margin-top: 8px; padding: 8px 12px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 12px; color: rgba(255,255,255,0.7);">💡 Real-Rendite 1.0% = neutral</div>
             </div>
             
             <div class="component">
                 <div class="component-header">
-                    <span class="component-name">Dollar Strength</span>
+                    <span class="component-name">Dollar-Stärke</span>
                     <span class="component-score">40/100 (20% = +8.0)</span>
                 </div>
-                <div class="subcomponents">
-                    <div class="subcomponent">
-                        <span class="subcomponent-name">DXY Index:</span>
-                        <span class="subcomponent-value">97.73 (100%)</span>
+                <div style="margin-top: 12px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px;">
+                        <span style="color: rgba(255,255,255,0.8);">DXY Dollar-Index:</span>
+                        <span style="color: #ffd700;">97.71 (100%) (bullisch für Gold)</span>
                     </div>
                     </div>
-                <div class="component-explanation">💡 DXY 97.7 = bullish für Gold</div>
+                <div style="margin-top: 8px; padding: 8px 12px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 12px; color: rgba(255,255,255,0.7);">💡 Dollar-Index 97.7 = bullisch für Gold</div>
             </div>
             
             <div class="component">
                 <div class="component-header">
-                    <span class="component-name">Fed Policy</span>
-                    <span class="component-score">63/100 (20% = +12.6)</span>
+                    <span class="component-name">Fed-Politik</span>
+                    <span class="component-score">54/100 (20% = +10.8)</span>
                 </div>
-                <div class="subcomponents">
-                    <div class="subcomponent">
-                        <span class="subcomponent-name">2Y Treasury:</span>
-                        <span class="subcomponent-value">0.00% (50%)</span>
+                <div style="margin-top: 12px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px;">
+                        <span style="color: rgba(255,255,255,0.8);">2J-Treasury Zins:</span>
+                        <span style="color: #ffd700;">4.75% (50%) (neutral abwartend)</span>
                     </div>
                     
-                    <div class="subcomponent">
-                        <span class="subcomponent-name">Yield Curve:</span>
-                        <span class="subcomponent-value">+0.00% (30%)</span>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px;">
+                        <span style="color: rgba(255,255,255,0.8);">Zinskurve 10J-2J:</span>
+                        <span style="color: #ffd700;">-0.50% (30%) (leicht invertiert)</span>
                     </div>
                     
-                    <div class="subcomponent">
-                        <span class="subcomponent-name">Credit Stress:</span>
-                        <span class="subcomponent-value">VIX 15.5 (20%)</span>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px;">
+                        <span style="color: rgba(255,255,255,0.8);">Kreditbedingungen:</span>
+                        <span style="color: #ffd700;">VIX 15.4 (20%) (entspannt (Fed kann straffen))</span>
                     </div>
                     </div>
-                <div class="component-explanation">💡 2Y bei 0.0% signalisiert dovish Fed</div>
+                <div style="margin-top: 8px; padding: 8px 12px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 12px; color: rgba(255,255,255,0.7);">💡 2J-Zins bei 4.8% signalisiert neutral abwartend</div>
             </div>
             
             <div class="component">
                 <div class="component-header">
-                    <span class="component-name">Inflation Hedge</span>
+                    <span class="component-name">Inflations-Absicherung</span>
                     <span class="component-score">50/100 (15% = +7.5)</span>
                 </div>
-                <div class="subcomponents">
-                    <div class="subcomponent">
-                        <span class="subcomponent-name">Oil Momentum:</span>
-                        <span class="subcomponent-value">+0.0% (100%)</span>
+                <div style="margin-top: 12px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px;">
+                        <span style="color: rgba(255,255,255,0.8);">Öl-Dynamik:</span>
+                        <span style="color: #ffd700;">+0.0% (100%) (stabiler Inflationsdruck)</span>
                     </div>
                     </div>
-                <div class="component-explanation">💡 Oil +0.0% = weniger Inflationsdruck</div>
+                <div style="margin-top: 8px; padding: 8px 12px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 12px; color: rgba(255,255,255,0.7);">💡 Öl +0.0% = stabiler Inflationsdruck</div>
             </div>
             
             <div class="component">
                 <div class="component-header">
-                    <span class="component-name">Safe Haven Demand</span>
+                    <span class="component-name">Sicherer Hafen</span>
                     <span class="component-score">40/100 (10% = +4.0)</span>
                 </div>
-                <div class="subcomponents">
-                    <div class="subcomponent">
-                        <span class="subcomponent-name">VIX Level:</span>
-                        <span class="subcomponent-value">15.5 (100%)</span>
+                <div style="margin-top: 12px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px;">
+                        <span style="color: rgba(255,255,255,0.8);">VIX Angst-Index:</span>
+                        <span style="color: #ffd700;">15.4 (100%) (geringe Safe-Haven-Nachfrage)</span>
                     </div>
                     </div>
-                <div class="component-explanation">💡 VIX 15.5 = moderate Safe Haven Nachfrage</div>
+                <div style="margin-top: 8px; padding: 8px 12px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 12px; color: rgba(255,255,255,0.7);">💡 Angst-Index 15.4 = geringe Safe-Haven-Nachfrage</div>
             </div>
             
             <div class="component">
                 <div class="component-header">
-                    <span class="component-name">ETF Flows</span>
+                    <span class="component-name">ETF-Zuflüsse</span>
                     <span class="component-score">70/100 (10% = +7.0)</span>
                 </div>
-                <div class="subcomponents">
-                    <div class="subcomponent">
-                        <span class="subcomponent-name">GLD Performance:</span>
-                        <span class="subcomponent-value">+1.3% (100%)</span>
+                <div style="margin-top: 12px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px;">
+                        <span style="color: rgba(255,255,255,0.8);">GLD-Performance:</span>
+                        <span style="color: #ffd700;">+1.3% (100%) (moderate Zuflüsse)</span>
                     </div>
                     </div>
-                <div class="component-explanation">💡 GLD +1.3% = institutionelle Zuflüsse</div>
+                <div style="margin-top: 8px; padding: 8px 12px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 12px; color: rgba(255,255,255,0.7);">💡 Gold-ETF +1.3% = moderate Zuflüsse</div>
             </div>
             
             </div>
@@ -845,22 +579,22 @@
     </div>
     
     <div class="section">
-        <div class="section-title">📍 Live Market Drivers</div>
+        <div class="section-title">📍 Live-Markt-Treiber</div>
         <div class="drivers-grid">
             
     <div class="driver-item">
-        <div class="driver-value">15.5</div>
-        <div class="driver-label">VIX (Fear Index)</div>
-        <div class="driver-change positive">+1.9%</div>
+        <div class="driver-value">15.4</div>
+        <div class="driver-label">Angst-Index (VIX)</div>
+        <div class="driver-change positive">+1.7%</div>
     </div>
     <div class="driver-item">
-        <div class="driver-value">97.73</div>
-        <div class="driver-label">DXY (US Dollar)</div>
+        <div class="driver-value">97.71</div>
+        <div class="driver-label">US-Dollar (DXY)</div>
         <div class="driver-change negative">+0.0%</div>
     </div>
     <div class="driver-item">
-        <div class="driver-value">$63.1</div>
-        <div class="driver-label">Oil (WTI)</div>
+        <div class="driver-value">63.2 $</div>
+        <div class="driver-label">Öl (WTI)</div>
         <div class="driver-change negative">+0.0%</div>
     </div>
     <div class="driver-item">
@@ -872,1204 +606,947 @@
         </div>
     </div>
     
+    <div class="section">
+        <div class="section-title">📰 Aktuelle Finanznachrichten</div>
+        
+        <div style="background: rgba(0,0,0,0.3); border-radius: 8px; padding: 15px; margin-bottom: 15px; border-left: 3px solid #ffd700;">
+            <div style="font-weight: 600; color: #667eea; margin-bottom: 8px;">“Binance dollars” replace Venezuela’s bolívar as Inflation hits 229%</div>
+            <div style="color: rgba(255,255,255,0.8); font-size: 13px; margin-bottom: 8px;">Venezuelans are ditching the bolívar for stablecoins like USDt as inflation soars to 229%, with stablecoins now used for everything from groceries to payroll....</div>
+            <div style="display: flex; justify-content: space-between; font-size: 12px; color: rgba(255,255,255,0.6);">
+                <span>Cointelegraph • 10:32</span>
+                <span>BTC: +0 | XAU: +0</span>
+            </div>
         </div>
         
-        <!-- Tab 2: Score Breakdown -->  
+        <div style="background: rgba(0,0,0,0.3); border-radius: 8px; padding: 15px; margin-bottom: 15px; border-left: 3px solid #ffd700;">
+            <div style="font-weight: 600; color: #667eea; margin-bottom: 8px;">Ripple’s SEC battle is over: Time to challenge SWIFT?</div>
+            <div style="color: rgba(255,255,255,0.8); font-size: 13px; margin-bottom: 8px;">Ripple is done fighting the SEC, meaning it can focus on its original goal: challenging SWIFT, the world’s money transfer system....</div>
+            <div style="display: flex; justify-content: space-between; font-size: 12px; color: rgba(255,255,255,0.6);">
+                <span>Cointelegraph • 10:07</span>
+                <span>BTC: +0 | XAU: +0</span>
+            </div>
+        </div>
+        
+        <div style="background: rgba(0,0,0,0.3); border-radius: 8px; padding: 15px; margin-bottom: 15px; border-left: 3px solid #ffd700;">
+            <div style="font-weight: 600; color: #667eea; margin-bottom: 8px;">Japan Prime Minister Ishiba Shigeru announces his resignation</div>
+            <div style="color: rgba(255,255,255,0.8); font-size: 13px; margin-bottom: 8px;">Ishiba had faced calls for his resignation after the ruling Liberal Democratic Party failed to secure a majority in the lower house election on Oct. 27....</div>
+            <div style="display: flex; justify-content: space-between; font-size: 12px; color: rgba(255,255,255,0.6);">
+                <span>CNBC • 09:18</span>
+                <span>BTC: +0 | XAU: +0</span>
+            </div>
+        </div>
+        
+    </div>
+    
+        </div>
+        
+        <!-- Tab 2: Score Details -->  
         <div id="breakdown-tab" class="tab-content">
             
     <div class="section">
-        <div class="section-title">🔍 Complete Score Transparency</div>
+        <div class="section-title">🔍 Vollständige Score-Transparenz</div>
         <p style="margin-bottom: 20px; color: rgba(255,255,255,0.8);">
-            Here you can see exactly how every score point is calculated and which data flows into it.
+            Hier siehst du genau, wie jeder Score-Punkt berechnet wird und welche Daten einfließen.
         </p>
         
         <div style="display: grid; gap: 25px;">
             <div class="section">
-                <h3 style="color: #667eea; margin-bottom: 20px;">BTC/USD Score Breakdown (Total: 54.4/100)</h3>
+                <h3 style="color: #667eea; margin-bottom: 20px;">Bitcoin (BTC) Score-Aufschlüsselung (Gesamt: 52.6/100)</h3>
                 
         <div style="margin-bottom: 25px; background: rgba(0,0,0,0.3); border-radius: 12px; padding: 20px;">
             <h4 style="color: #667eea; margin-bottom: 15px;">
-                Risk Sentiment (25% Weight)
+                Risiko-Stimmung (25% Gewichtung)
             </h4>
             
-            <table class="data-table">
+            <table style="width: 100%; border-collapse: collapse; color: #e0e0e0;">
                 <thead>
-                    <tr>
-                        <th>Component</th>
-                        <th>Current Value</th>
-                        <th>Score</th>
-                        <th>Weight/Impact</th>
+                    <tr style="background: rgba(102, 126, 234, 0.2);">
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Komponente</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Aktueller Wert</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Score</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Gewicht</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Bedeutung</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr style="background: rgba(102, 126, 234, 0.1);">
-                        <td><strong>Risk Sentiment</strong></td>
-                        <td><strong>Combined</strong></td>
-                        <td><strong>50/100</strong></td>
-                        <td><strong>25% = +12.5 pts</strong></td>
+                        <td style="padding: 10px;"><strong>Risiko-Stimmung</strong></td>
+                        <td style="padding: 10px;"><strong>Kombiniert</strong></td>
+                        <td style="padding: 10px;"><strong>50/100</strong></td>
+                        <td style="padding: 10px;"><strong>25% = +12.5 Pkt</strong></td>
+                        <td style="padding: 10px; font-size: 12px;"><strong>Angst-Index bei 15.4 = niedrig (bullisch) für Bitcoin</strong></td>
                     </tr>
                     
-                <tr>
-                    <td style="padding-left: 20px;">├─ VIX Level</td>
-                    <td>15.470000267028809</td>
+                <tr style="background: rgba(255,255,255,0.02);">
+                    <td style="padding-left: 20px;">├─ VIX Angst-Index</td>
+                    <td>15.4</td>
                     <td>65/100</td>
                     <td>35%</td>
+                    <td style="font-size: 12px;">niedrig (bullisch)</td>
                 </tr>
                 
-                <tr>
-                    <td style="padding-left: 20px;">├─ NASDAQ Change</td>
+                <tr style="background: rgba(255,255,255,0.02);">
+                    <td style="padding-left: 20px;">├─ NASDAQ Tech-Index</td>
                     <td>-0.0%</td>
                     <td>40/100</td>
                     <td>40%</td>
+                    <td style="font-size: 12px;">leicht negativ</td>
                 </tr>
                 
-                <tr>
-                    <td style="padding-left: 20px;">├─ SPY Change</td>
+                <tr style="background: rgba(255,255,255,0.02);">
+                    <td style="padding-left: 20px;">├─ SPY Markt-Breite</td>
                     <td>-0.3%</td>
                     <td>45/100</td>
                     <td>25%</td>
+                    <td style="font-size: 12px;">vorsichtig</td>
                 </tr>
                 
                 </tbody>
             </table>
-            
-            <div style="margin-top: 12px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 13px; color: rgba(255,255,255,0.8);">💡 VIX 15.5 (niedrig=bullish)</div>
         </div>
         
         <div style="margin-bottom: 25px; background: rgba(0,0,0,0.3); border-radius: 12px; padding: 20px;">
             <h4 style="color: #667eea; margin-bottom: 15px;">
-                Fed Policy (20% Weight)
+                Fed-Politik (20% Gewichtung)
             </h4>
             
-            <table class="data-table">
+            <table style="width: 100%; border-collapse: collapse; color: #e0e0e0;">
                 <thead>
-                    <tr>
-                        <th>Component</th>
-                        <th>Current Value</th>
-                        <th>Score</th>
-                        <th>Weight/Impact</th>
+                    <tr style="background: rgba(102, 126, 234, 0.2);">
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Komponente</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Aktueller Wert</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Score</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Gewicht</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Bedeutung</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr style="background: rgba(102, 126, 234, 0.1);">
-                        <td><strong>Fed Policy</strong></td>
-                        <td><strong>Combined</strong></td>
-                        <td><strong>63/100</strong></td>
-                        <td><strong>20% = +12.6 pts</strong></td>
+                        <td style="padding: 10px;"><strong>Fed-Politik</strong></td>
+                        <td style="padding: 10px;"><strong>Kombiniert</strong></td>
+                        <td style="padding: 10px;"><strong>54/100</strong></td>
+                        <td style="padding: 10px;"><strong>20% = +10.8 Pkt</strong></td>
+                        <td style="padding: 10px; font-size: 12px;"><strong>2J-Zins bei 4.8% signalisiert neutral abwartend</strong></td>
                     </tr>
                     
-                <tr>
-                    <td style="padding-left: 20px;">├─ 2Y Treasury</td>
-                    <td>0.00%</td>
-                    <td>85/100</td>
+                <tr style="background: rgba(255,255,255,0.02);">
+                    <td style="padding-left: 20px;">├─ 2J-Treasury Zins</td>
+                    <td>4.75%</td>
+                    <td>50/100</td>
                     <td>50%</td>
+                    <td style="font-size: 12px;">neutral abwartend</td>
                 </tr>
                 
-                <tr>
-                    <td style="padding-left: 20px;">├─ Yield Curve</td>
-                    <td>+0.00%</td>
-                    <td>45/100</td>
+                <tr style="background: rgba(255,255,255,0.02);">
+                    <td style="padding-left: 20px;">├─ Zinskurve 10J-2J</td>
+                    <td>-0.50%</td>
+                    <td>75/100</td>
                     <td>30%</td>
+                    <td style="font-size: 12px;">leicht invertiert</td>
                 </tr>
                 
-                <tr>
-                    <td style="padding-left: 20px;">├─ Credit Stress</td>
-                    <td>VIX 15.5</td>
+                <tr style="background: rgba(255,255,255,0.02);">
+                    <td style="padding-left: 20px;">├─ Kreditbedingungen</td>
+                    <td>VIX 15.4</td>
                     <td>35/100</td>
                     <td>20%</td>
+                    <td style="font-size: 12px;">entspannt (Fed kann straffen)</td>
                 </tr>
                 
                 </tbody>
             </table>
-            
-            <div style="margin-top: 12px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 13px; color: rgba(255,255,255,0.8);">💡 2Y bei 0.0% signalisiert dovish Fed</div>
         </div>
         
         <div style="margin-bottom: 25px; background: rgba(0,0,0,0.3); border-radius: 12px; padding: 20px;">
             <h4 style="color: #667eea; margin-bottom: 15px;">
-                Inflation Nowcast (15% Weight)
+                Inflation (15% Gewichtung)
             </h4>
             
-            <table class="data-table">
+            <table style="width: 100%; border-collapse: collapse; color: #e0e0e0;">
                 <thead>
-                    <tr>
-                        <th>Component</th>
-                        <th>Current Value</th>
-                        <th>Score</th>
-                        <th>Weight/Impact</th>
+                    <tr style="background: rgba(102, 126, 234, 0.2);">
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Komponente</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Aktueller Wert</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Score</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Gewicht</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Bedeutung</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr style="background: rgba(102, 126, 234, 0.1);">
-                        <td><strong>Inflation Nowcast</strong></td>
-                        <td><strong>Combined</strong></td>
-                        <td><strong>42/100</strong></td>
-                        <td><strong>15% = +6.3 pts</strong></td>
+                        <td style="padding: 10px;"><strong>Inflation</strong></td>
+                        <td style="padding: 10px;"><strong>Kombiniert</strong></td>
+                        <td style="padding: 10px;"><strong>42/100</strong></td>
+                        <td style="padding: 10px;"><strong>15% = +6.3 Pkt</strong></td>
+                        <td style="padding: 10px; font-size: 12px;"><strong>Öl +0.0% + starker Dollar = inflationär</strong></td>
                     </tr>
                     
-                <tr>
-                    <td style="padding-left: 20px;">├─ Oil Momentum</td>
+                <tr style="background: rgba(255,255,255,0.02);">
+                    <td style="padding-left: 20px;">├─ Öl-Dynamik</td>
                     <td>+0.0%</td>
                     <td>50/100</td>
                     <td>60%</td>
+                    <td style="font-size: 12px;">stabil</td>
                 </tr>
                 
-                <tr>
-                    <td style="padding-left: 20px;">├─ Dollar Strength</td>
+                <tr style="background: rgba(255,255,255,0.02);">
+                    <td style="padding-left: 20px;">├─ Dollar-Stärke</td>
                     <td>DXY 97.7</td>
                     <td>30/100</td>
                     <td>40%</td>
+                    <td style="font-size: 12px;">schwach (mehr Inflation)</td>
                 </tr>
                 
                 </tbody>
             </table>
-            
-            <div style="margin-top: 12px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 13px; color: rgba(255,255,255,0.8);">💡 Oil +0.0% + DXY 97.7 = inflationary</div>
         </div>
         
         <div style="margin-bottom: 25px; background: rgba(0,0,0,0.3); border-radius: 12px; padding: 20px;">
             <h4 style="color: #667eea; margin-bottom: 15px;">
-                Dollar Strength (15% Weight)
+                Dollar-Stärke (15% Gewichtung)
             </h4>
             
-            <table class="data-table">
+            <table style="width: 100%; border-collapse: collapse; color: #e0e0e0;">
                 <thead>
-                    <tr>
-                        <th>Component</th>
-                        <th>Current Value</th>
-                        <th>Score</th>
-                        <th>Weight/Impact</th>
+                    <tr style="background: rgba(102, 126, 234, 0.2);">
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Komponente</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Aktueller Wert</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Score</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Gewicht</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Bedeutung</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr style="background: rgba(102, 126, 234, 0.1);">
-                        <td><strong>Dollar Strength</strong></td>
-                        <td><strong>Combined</strong></td>
-                        <td><strong>70/100</strong></td>
-                        <td><strong>15% = +10.5 pts</strong></td>
+                        <td style="padding: 10px;"><strong>Dollar-Stärke</strong></td>
+                        <td style="padding: 10px;"><strong>Kombiniert</strong></td>
+                        <td style="padding: 10px;"><strong>70/100</strong></td>
+                        <td style="padding: 10px;"><strong>15% = +10.5 Pkt</strong></td>
+                        <td style="padding: 10px; font-size: 12px;"><strong>Dollar-Index 97.7 = schwach (positiv für BTC)</strong></td>
                     </tr>
                     
-                <tr>
-                    <td style="padding-left: 20px;">├─ DXY Index</td>
-                    <td>97.73</td>
+                <tr style="background: rgba(255,255,255,0.02);">
+                    <td style="padding-left: 20px;">├─ DXY Dollar-Index</td>
+                    <td>97.71</td>
                     <td>70/100</td>
                     <td>100%</td>
+                    <td style="font-size: 12px;">schwach (positiv für BTC)</td>
                 </tr>
                 
                 </tbody>
             </table>
-            
-            <div style="margin-top: 12px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 13px; color: rgba(255,255,255,0.8);">💡 DXY 97.7 = schwach (invers zu BTC)</div>
         </div>
         
         <div style="margin-bottom: 25px; background: rgba(0,0,0,0.3); border-radius: 12px; padding: 20px;">
             <h4 style="color: #667eea; margin-bottom: 15px;">
-                Tech Correlation (10% Weight)
+                Tech-Korrelation (10% Gewichtung)
             </h4>
             
-            <table class="data-table">
+            <table style="width: 100%; border-collapse: collapse; color: #e0e0e0;">
                 <thead>
-                    <tr>
-                        <th>Component</th>
-                        <th>Current Value</th>
-                        <th>Score</th>
-                        <th>Weight/Impact</th>
+                    <tr style="background: rgba(102, 126, 234, 0.2);">
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Komponente</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Aktueller Wert</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Score</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Gewicht</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Bedeutung</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr style="background: rgba(102, 126, 234, 0.1);">
-                        <td><strong>Tech Correlation</strong></td>
-                        <td><strong>Combined</strong></td>
-                        <td><strong>50/100</strong></td>
-                        <td><strong>10% = +5.0 pts</strong></td>
+                        <td style="padding: 10px;"><strong>Tech-Korrelation</strong></td>
+                        <td style="padding: 10px;"><strong>Kombiniert</strong></td>
+                        <td style="padding: 10px;"><strong>50/100</strong></td>
+                        <td style="padding: 10px;"><strong>10% = +5.0 Pkt</strong></td>
+                        <td style="padding: 10px; font-size: 12px;"><strong>NASDAQ -0.0% = negativ für Bitcoin</strong></td>
                     </tr>
                     
-                <tr>
-                    <td style="padding-left: 20px;">├─ NASDAQ Performance</td>
+                <tr style="background: rgba(255,255,255,0.02);">
+                    <td style="padding-left: 20px;">├─ NASDAQ-Performance</td>
                     <td>-0.0%</td>
                     <td>50/100</td>
                     <td>100%</td>
+                    <td style="font-size: 12px;">negativ für Bitcoin</td>
                 </tr>
                 
                 </tbody>
             </table>
-            
-            <div style="margin-top: 12px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 13px; color: rgba(255,255,255,0.8);">💡 NASDAQ -0.0% = negative Tech correlation</div>
         </div>
         
         <div style="margin-bottom: 25px; background: rgba(0,0,0,0.3); border-radius: 12px; padding: 20px;">
             <h4 style="color: #667eea; margin-bottom: 15px;">
-                OnChain Proxy (15% Weight)
+                Preis-Momentum (15% Gewichtung)
             </h4>
             
-            <table class="data-table">
+            <table style="width: 100%; border-collapse: collapse; color: #e0e0e0;">
                 <thead>
-                    <tr>
-                        <th>Component</th>
-                        <th>Current Value</th>
-                        <th>Score</th>
-                        <th>Weight/Impact</th>
+                    <tr style="background: rgba(102, 126, 234, 0.2);">
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Komponente</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Aktueller Wert</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Score</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Gewicht</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Bedeutung</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr style="background: rgba(102, 126, 234, 0.1);">
-                        <td><strong>OnChain Proxy</strong></td>
-                        <td><strong>Combined</strong></td>
-                        <td><strong>50/100</strong></td>
-                        <td><strong>15% = +7.5 pts</strong></td>
+                        <td style="padding: 10px;"><strong>Preis-Momentum</strong></td>
+                        <td style="padding: 10px;"><strong>Kombiniert</strong></td>
+                        <td style="padding: 10px;"><strong>50/100</strong></td>
+                        <td style="padding: 10px;"><strong>15% = +7.5 Pkt</strong></td>
+                        <td style="padding: 10px; font-size: 12px;"><strong>Bitcoin +0.9% = seitwärts</strong></td>
                     </tr>
                     
-                <tr>
-                    <td style="padding-left: 20px;">├─ Price Momentum</td>
+                <tr style="background: rgba(255,255,255,0.02);">
+                    <td style="padding-left: 20px;">├─ BTC-Dynamik 24h</td>
                     <td>+0.9%</td>
                     <td>50/100</td>
                     <td>100%</td>
+                    <td style="font-size: 12px;">seitwärts</td>
                 </tr>
                 
                 </tbody>
             </table>
-            
-            <div style="margin-top: 12px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 13px; color: rgba(255,255,255,0.8);">💡 BTC +0.9% momentum als OnChain-Proxy</div>
         </div>
         
             </div>
             
             <div class="section">
-                <h3 style="color: #667eea; margin-bottom: 20px;">XAU/USD Score Breakdown (Total: 61.6/100)</h3>
+                <h3 style="color: #667eea; margin-bottom: 20px;">Gold (XAU) Score-Aufschlüsselung (Gesamt: 49.8/100)</h3>
                 
         <div style="margin-bottom: 25px; background: rgba(0,0,0,0.3); border-radius: 12px; padding: 20px;">
             <h4 style="color: #667eea; margin-bottom: 15px;">
-                Real Yield (25% Weight)
+                Real-Rendite (25% Gewichtung)
             </h4>
             
-            <table class="data-table">
+            <table style="width: 100%; border-collapse: collapse; color: #e0e0e0;">
                 <thead>
-                    <tr>
-                        <th>Component</th>
-                        <th>Current Value</th>
-                        <th>Score</th>
-                        <th>Weight/Impact</th>
+                    <tr style="background: rgba(102, 126, 234, 0.2);">
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Komponente</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Aktueller Wert</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Score</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Gewicht</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Bedeutung</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr style="background: rgba(102, 126, 234, 0.1);">
-                        <td><strong>Real Yield</strong></td>
-                        <td><strong>Combined</strong></td>
-                        <td><strong>90/100</strong></td>
-                        <td><strong>25% = +22.5 pts</strong></td>
+                        <td style="padding: 10px;"><strong>Real-Rendite</strong></td>
+                        <td style="padding: 10px;"><strong>Kombiniert</strong></td>
+                        <td style="padding: 10px;"><strong>50/100</strong></td>
+                        <td style="padding: 10px;"><strong>25% = +12.5 Pkt</strong></td>
+                        <td style="padding: 10px; font-size: 12px;"><strong>Real-Rendite 1.0% = neutral</strong></td>
                     </tr>
                     
-                <tr>
-                    <td style="padding-left: 20px;">├─ 10Y Treasury</td>
-                    <td>0.00%</td>
+                <tr style="background: rgba(255,255,255,0.02);">
+                    <td style="padding-left: 20px;">├─ 10J-Treasury</td>
+                    <td>4.25%</td>
                     <td>N/A/100</td>
                     <td>+</td>
+                    <td style="font-size: 12px;"></td>
                 </tr>
                 
-                <tr>
-                    <td style="padding-left: 20px;">├─ CPI Estimate</td>
+                <tr style="background: rgba(255,255,255,0.02);">
+                    <td style="padding-left: 20px;">├─ Inflation</td>
                     <td>-3.2%</td>
                     <td>N/A/100</td>
                     <td>-</td>
+                    <td style="font-size: 12px;"></td>
                 </tr>
                 
-                <tr>
-                    <td style="padding-left: 20px;">├─ Real Yield</td>
-                    <td>-3.20%</td>
-                    <td>90/100</td>
+                <tr style="background: rgba(255,255,255,0.02);">
+                    <td style="padding-left: 20px;">├─ Real-Rendite</td>
+                    <td>1.05%</td>
+                    <td>50/100</td>
                     <td>100%</td>
+                    <td style="font-size: 12px;">moderat (neutral)</td>
                 </tr>
                 
                 </tbody>
             </table>
-            
-            <div style="margin-top: 12px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 13px; color: rgba(255,255,255,0.8);">💡 Real Yield -3.2% = bullish für Gold</div>
         </div>
         
         <div style="margin-bottom: 25px; background: rgba(0,0,0,0.3); border-radius: 12px; padding: 20px;">
             <h4 style="color: #667eea; margin-bottom: 15px;">
-                Dollar Strength (20% Weight)
+                Dollar-Stärke (20% Gewichtung)
             </h4>
             
-            <table class="data-table">
+            <table style="width: 100%; border-collapse: collapse; color: #e0e0e0;">
                 <thead>
-                    <tr>
-                        <th>Component</th>
-                        <th>Current Value</th>
-                        <th>Score</th>
-                        <th>Weight/Impact</th>
+                    <tr style="background: rgba(102, 126, 234, 0.2);">
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Komponente</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Aktueller Wert</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Score</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Gewicht</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Bedeutung</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr style="background: rgba(102, 126, 234, 0.1);">
-                        <td><strong>Dollar Strength</strong></td>
-                        <td><strong>Combined</strong></td>
-                        <td><strong>40/100</strong></td>
-                        <td><strong>20% = +8.0 pts</strong></td>
+                        <td style="padding: 10px;"><strong>Dollar-Stärke</strong></td>
+                        <td style="padding: 10px;"><strong>Kombiniert</strong></td>
+                        <td style="padding: 10px;"><strong>40/100</strong></td>
+                        <td style="padding: 10px;"><strong>20% = +8.0 Pkt</strong></td>
+                        <td style="padding: 10px; font-size: 12px;"><strong>Dollar-Index 97.7 = bullisch für Gold</strong></td>
                     </tr>
                     
-                <tr>
-                    <td style="padding-left: 20px;">├─ DXY Index</td>
-                    <td>97.73</td>
+                <tr style="background: rgba(255,255,255,0.02);">
+                    <td style="padding-left: 20px;">├─ DXY Dollar-Index</td>
+                    <td>97.71</td>
                     <td>40/100</td>
                     <td>100%</td>
+                    <td style="font-size: 12px;">bullisch für Gold</td>
                 </tr>
                 
                 </tbody>
             </table>
-            
-            <div style="margin-top: 12px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 13px; color: rgba(255,255,255,0.8);">💡 DXY 97.7 = bullish für Gold</div>
         </div>
         
         <div style="margin-bottom: 25px; background: rgba(0,0,0,0.3); border-radius: 12px; padding: 20px;">
             <h4 style="color: #667eea; margin-bottom: 15px;">
-                Fed Policy (20% Weight)
+                Fed-Politik (20% Gewichtung)
             </h4>
             
-            <table class="data-table">
+            <table style="width: 100%; border-collapse: collapse; color: #e0e0e0;">
                 <thead>
-                    <tr>
-                        <th>Component</th>
-                        <th>Current Value</th>
-                        <th>Score</th>
-                        <th>Weight/Impact</th>
+                    <tr style="background: rgba(102, 126, 234, 0.2);">
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Komponente</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Aktueller Wert</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Score</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Gewicht</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Bedeutung</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr style="background: rgba(102, 126, 234, 0.1);">
-                        <td><strong>Fed Policy</strong></td>
-                        <td><strong>Combined</strong></td>
-                        <td><strong>63/100</strong></td>
-                        <td><strong>20% = +12.6 pts</strong></td>
+                        <td style="padding: 10px;"><strong>Fed-Politik</strong></td>
+                        <td style="padding: 10px;"><strong>Kombiniert</strong></td>
+                        <td style="padding: 10px;"><strong>54/100</strong></td>
+                        <td style="padding: 10px;"><strong>20% = +10.8 Pkt</strong></td>
+                        <td style="padding: 10px; font-size: 12px;"><strong>2J-Zins bei 4.8% signalisiert neutral abwartend</strong></td>
                     </tr>
                     
-                <tr>
-                    <td style="padding-left: 20px;">├─ 2Y Treasury</td>
-                    <td>0.00%</td>
-                    <td>85/100</td>
+                <tr style="background: rgba(255,255,255,0.02);">
+                    <td style="padding-left: 20px;">├─ 2J-Treasury Zins</td>
+                    <td>4.75%</td>
+                    <td>50/100</td>
                     <td>50%</td>
+                    <td style="font-size: 12px;">neutral abwartend</td>
                 </tr>
                 
-                <tr>
-                    <td style="padding-left: 20px;">├─ Yield Curve</td>
-                    <td>+0.00%</td>
-                    <td>45/100</td>
+                <tr style="background: rgba(255,255,255,0.02);">
+                    <td style="padding-left: 20px;">├─ Zinskurve 10J-2J</td>
+                    <td>-0.50%</td>
+                    <td>75/100</td>
                     <td>30%</td>
+                    <td style="font-size: 12px;">leicht invertiert</td>
                 </tr>
                 
-                <tr>
-                    <td style="padding-left: 20px;">├─ Credit Stress</td>
-                    <td>VIX 15.5</td>
+                <tr style="background: rgba(255,255,255,0.02);">
+                    <td style="padding-left: 20px;">├─ Kreditbedingungen</td>
+                    <td>VIX 15.4</td>
                     <td>35/100</td>
                     <td>20%</td>
+                    <td style="font-size: 12px;">entspannt (Fed kann straffen)</td>
                 </tr>
                 
                 </tbody>
             </table>
-            
-            <div style="margin-top: 12px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 13px; color: rgba(255,255,255,0.8);">💡 2Y bei 0.0% signalisiert dovish Fed</div>
         </div>
         
         <div style="margin-bottom: 25px; background: rgba(0,0,0,0.3); border-radius: 12px; padding: 20px;">
             <h4 style="color: #667eea; margin-bottom: 15px;">
-                Inflation Hedge (15% Weight)
+                Inflations-Absicherung (15% Gewichtung)
             </h4>
             
-            <table class="data-table">
+            <table style="width: 100%; border-collapse: collapse; color: #e0e0e0;">
                 <thead>
-                    <tr>
-                        <th>Component</th>
-                        <th>Current Value</th>
-                        <th>Score</th>
-                        <th>Weight/Impact</th>
+                    <tr style="background: rgba(102, 126, 234, 0.2);">
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Komponente</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Aktueller Wert</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Score</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Gewicht</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Bedeutung</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr style="background: rgba(102, 126, 234, 0.1);">
-                        <td><strong>Inflation Hedge</strong></td>
-                        <td><strong>Combined</strong></td>
-                        <td><strong>50/100</strong></td>
-                        <td><strong>15% = +7.5 pts</strong></td>
+                        <td style="padding: 10px;"><strong>Inflations-Absicherung</strong></td>
+                        <td style="padding: 10px;"><strong>Kombiniert</strong></td>
+                        <td style="padding: 10px;"><strong>50/100</strong></td>
+                        <td style="padding: 10px;"><strong>15% = +7.5 Pkt</strong></td>
+                        <td style="padding: 10px; font-size: 12px;"><strong>Öl +0.0% = stabiler Inflationsdruck</strong></td>
                     </tr>
                     
-                <tr>
-                    <td style="padding-left: 20px;">├─ Oil Momentum</td>
+                <tr style="background: rgba(255,255,255,0.02);">
+                    <td style="padding-left: 20px;">├─ Öl-Dynamik</td>
                     <td>+0.0%</td>
                     <td>50/100</td>
                     <td>100%</td>
+                    <td style="font-size: 12px;">stabiler Inflationsdruck</td>
                 </tr>
                 
                 </tbody>
             </table>
-            
-            <div style="margin-top: 12px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 13px; color: rgba(255,255,255,0.8);">💡 Oil +0.0% = weniger Inflationsdruck</div>
         </div>
         
         <div style="margin-bottom: 25px; background: rgba(0,0,0,0.3); border-radius: 12px; padding: 20px;">
             <h4 style="color: #667eea; margin-bottom: 15px;">
-                Safe Haven Demand (10% Weight)
+                Sicherer Hafen (10% Gewichtung)
             </h4>
             
-            <table class="data-table">
+            <table style="width: 100%; border-collapse: collapse; color: #e0e0e0;">
                 <thead>
-                    <tr>
-                        <th>Component</th>
-                        <th>Current Value</th>
-                        <th>Score</th>
-                        <th>Weight/Impact</th>
+                    <tr style="background: rgba(102, 126, 234, 0.2);">
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Komponente</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Aktueller Wert</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Score</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Gewicht</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Bedeutung</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr style="background: rgba(102, 126, 234, 0.1);">
-                        <td><strong>Safe Haven Demand</strong></td>
-                        <td><strong>Combined</strong></td>
-                        <td><strong>40/100</strong></td>
-                        <td><strong>10% = +4.0 pts</strong></td>
+                        <td style="padding: 10px;"><strong>Sicherer Hafen</strong></td>
+                        <td style="padding: 10px;"><strong>Kombiniert</strong></td>
+                        <td style="padding: 10px;"><strong>40/100</strong></td>
+                        <td style="padding: 10px;"><strong>10% = +4.0 Pkt</strong></td>
+                        <td style="padding: 10px; font-size: 12px;"><strong>Angst-Index 15.4 = geringe Safe-Haven-Nachfrage</strong></td>
                     </tr>
                     
-                <tr>
-                    <td style="padding-left: 20px;">├─ VIX Level</td>
-                    <td>15.5</td>
+                <tr style="background: rgba(255,255,255,0.02);">
+                    <td style="padding-left: 20px;">├─ VIX Angst-Index</td>
+                    <td>15.4</td>
                     <td>40/100</td>
                     <td>100%</td>
+                    <td style="font-size: 12px;">geringe Safe-Haven-Nachfrage</td>
                 </tr>
                 
                 </tbody>
             </table>
-            
-            <div style="margin-top: 12px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 13px; color: rgba(255,255,255,0.8);">💡 VIX 15.5 = moderate Safe Haven Nachfrage</div>
         </div>
         
         <div style="margin-bottom: 25px; background: rgba(0,0,0,0.3); border-radius: 12px; padding: 20px;">
             <h4 style="color: #667eea; margin-bottom: 15px;">
-                ETF Flows (10% Weight)
+                ETF-Zuflüsse (10% Gewichtung)
             </h4>
             
-            <table class="data-table">
+            <table style="width: 100%; border-collapse: collapse; color: #e0e0e0;">
                 <thead>
-                    <tr>
-                        <th>Component</th>
-                        <th>Current Value</th>
-                        <th>Score</th>
-                        <th>Weight/Impact</th>
+                    <tr style="background: rgba(102, 126, 234, 0.2);">
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Komponente</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Aktueller Wert</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Score</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Gewicht</th>
+                        <th style="padding: 10px; text-align: left; color: #667eea;">Bedeutung</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr style="background: rgba(102, 126, 234, 0.1);">
-                        <td><strong>ETF Flows</strong></td>
-                        <td><strong>Combined</strong></td>
-                        <td><strong>70/100</strong></td>
-                        <td><strong>10% = +7.0 pts</strong></td>
+                        <td style="padding: 10px;"><strong>ETF-Zuflüsse</strong></td>
+                        <td style="padding: 10px;"><strong>Kombiniert</strong></td>
+                        <td style="padding: 10px;"><strong>70/100</strong></td>
+                        <td style="padding: 10px;"><strong>10% = +7.0 Pkt</strong></td>
+                        <td style="padding: 10px; font-size: 12px;"><strong>Gold-ETF +1.3% = moderate Zuflüsse</strong></td>
                     </tr>
                     
-                <tr>
-                    <td style="padding-left: 20px;">├─ GLD Performance</td>
+                <tr style="background: rgba(255,255,255,0.02);">
+                    <td style="padding-left: 20px;">├─ GLD-Performance</td>
                     <td>+1.3%</td>
                     <td>70/100</td>
                     <td>100%</td>
+                    <td style="font-size: 12px;">moderate Zuflüsse</td>
                 </tr>
                 
                 </tbody>
             </table>
-            
-            <div style="margin-top: 12px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 13px; color: rgba(255,255,255,0.8);">💡 GLD +1.3% = institutionelle Zuflüsse</div>
         </div>
         
             </div>
         </div>
     </div>
     
-    <div class="section">
-        <div class="section-title">💡 How the Scoring System Works</div>
-        <div style="color: rgba(255,255,255,0.8); font-size: 14px; line-height: 1.7;">
-            <strong>1. Individual Factors:</strong> Each factor (Risk, Fed, etc.) is rated 0-100<br>
-            <strong>2. Weighting:</strong> Each factor has a specific weight (e.g. Risk = 25%)<br>
-            <strong>3. Contribution:</strong> Score × Weight = Contribution to total score<br>
-            <strong>4. Total Score:</strong> Sum of all weighted contributions = Final Score<br><br>
-            
-            <strong>🎯 Signal Thresholds:</strong><br>
-            • 75-100: 🟢 STRONG BULLISH<br>
-            • 60-74: 🟡 BULLISH<br>
-            • 40-59: ⚪ NEUTRAL<br>
-            • 25-39: 🟠 BEARISH<br>
-            • 0-24: 🔴 STRONG BEARISH
-        </div>
-    </div>
-    
         </div>
         
-        <!-- Tab 3: Predictive Chain -->
+        <!-- Tab 3: Vorhersage-Kette -->
         <div id="predictive-tab" class="tab-content">
             
     <div class="section">
-        <div class="section-title">🔮 Predictive Chain - How Current Data Predicts Future Events</div>
+        <div class="section-title">🔮 Vorhersage-Kette - Wie aktuelle Daten zukünftige Ereignisse vorhersagen</div>
         
-        <div class="event-card">
-            <div class="event-header">
-                <span class="event-name">📈 Oil Price Impact Chain</span>
-                <span class="event-date">Current: +0.0%</span>
-            </div>
-            
-            <div style="background: rgba(0,0,0,0.2); border-radius: 8px; padding: 15px; margin-top: 15px;">
-                <strong>🔄 Prediction Timeline:</strong><br>
-                <div style="margin: 10px 0; padding-left: 15px;">
-                    📊 <strong>Today:</strong> Oil +0.0% → Energy cost signals<br>
-                    ⏰ <strong>In 2-3 weeks:</strong> CPI Energy component -0.0% impact<br>
-                    🏛️ <strong>In 4-6 weeks:</strong> Fed sees inflation trend<br>
-                    💰 <strong>Asset Impact:</strong> BTC Score 0pts, XAU Score 0pts
-                </div>
+        <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+            <h4 style="color: #667eea; margin-bottom: 15px;">📈 Öl-Preis Impact-Kette</h4>
+            <div style="color: rgba(255,255,255,0.8); font-size: 14px;">
+                <strong>Aktuelle Situation:</strong> Öl +0.0%<br><br>
                 
-                <strong>💡 Why this works:</strong><br>
-                Oil is ~7% of CPI → Direct correlation<br>
-                Energy price changes flow through to headline inflation in 2-4 weeks<br>
-                Fed reacts to inflation data → Policy expectations change → Asset scores adjust
+                <strong>🔄 Vorhersage-Zeitlinie:</strong><br>
+                📊 <strong>Heute:</strong> Öl +0.0% → Energiekosten-Signal<br>
+                ⏰ <strong>In 2-3 Wochen:</strong> CPI Energie-Komponente -0.0% Auswirkung<br>
+                🏛️ <strong>In 4-6 Wochen:</strong> Fed sieht inflationstrend<br>
+                💰 <strong>Asset-Auswirkung:</strong> BTC-Score 0 Pkt, XAU-Score 0 Pkt<br><br>
+                
+                <strong>💡 Warum das funktioniert:</strong><br>
+                Öl macht ~7% des Verbraucherpreisindex aus → Direkte Korrelation<br>
+                Energiepreisänderungen fließen in 2-4 Wochen in die Inflation ein<br>
+                Fed reagiert auf Inflationsdaten → Politik-Erwartungen ändern sich → Asset-Scores passen sich an
             </div>
         </div>
         
-        <div class="event-card">
-            <div class="event-header">
-                <span class="event-name">🏛️ Treasury Yield Signal Chain</span>
-                <span class="event-date">2Y: 0.00%</span>
-            </div>
-            
-            <div style="background: rgba(0,0,0,0.2); border-radius: 8px; padding: 15px; margin-top: 15px;">
-                <strong>🎯 Current Signal:</strong> 2Y Treasury at 0.0% suggests:<br>
-                <div style="margin: 10px 0; padding-left: 15px;">
-                    📈 Market expects Fed HOLD/slight cuts<br>
-                    ⚡ <strong>Trigger Level:</strong> If 2Y drops below 4.0% → CUT expectations surge<br>
-                    📊 <strong>Score Impact:</strong> Each -0.25% in 2Y = +15pts BTC, +8pts XAU<br>
-                    ⏰ <strong>Timeline:</strong> Treasury moves → Fed futures → Asset scores (same day)
-                </div>
+        <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+            <h4 style="color: #667eea; margin-bottom: 15px;">🏛️ Treasury-Rendite Signal-Kette</h4>
+            <div style="color: rgba(255,255,255,0.8); font-size: 14px;">
+                <strong>Aktuelles Signal:</strong> 2J-Treasury bei 4.8% deutet auf:<br><br>
+                
+                📈 Markt erwartet Fed HALT/leichte Senkungen<br>
+                ⚡ <strong>Auslöse-Level:</strong> Falls 2J unter 4,0% fällt → SENKUNGS-Erwartungen steigen<br>
+                📊 <strong>Score-Auswirkung:</strong> Jede -0,25% bei 2J = +15 Pkt BTC, +8 Pkt XAU<br>
+                ⏰ <strong>Zeitlinie:</strong> Treasury-Bewegung → Fed-Futures → Asset-Scores (gleicher Tag)
             </div>
         </div>
         
-        <div class="event-card">
-            <div class="event-header">
-                <span class="event-name">🎲 Fear Index (VIX) Cascade</span>
-                <span class="event-date">Current: 15.5</span>
-            </div>
-            
-            <div style="background: rgba(0,0,0,0.2); border-radius: 8px; padding: 15px; margin-top: 15px;">
-                <strong>📊 Risk Cascade Effect:</strong><br>
-                <div style="margin: 10px 0; padding-left: 15px;">
-                    🔄 <strong>VIX 15.5</strong> → Low fear = Risk-On<br>
-                    💰 <strong>Credit Impact:</strong> Easy credit conditions<br>
-                    🏛️ <strong>Fed Implications:</strong> Fed can be hawkish<br>
-                    📈 <strong>Asset Flow:</strong> BTC benefits, XAU neutral
-                </div>
+        <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 20px;">
+            <h4 style="color: #667eea; margin-bottom: 15px;">🎲 Angst-Index (VIX) Kaskade</h4>
+            <div style="color: rgba(255,255,255,0.8); font-size: 14px;">
+                <strong>📊 Risiko-Kaskaden-Effekt:</strong><br><br>
                 
-                <strong>⚠️ Critical Levels:</strong><br>
-                • VIX <15: Strong Risk-On → BTC +20pts, XAU -10pts<br>
-                • VIX >30: Risk-Off mode → BTC -25pts, XAU +20pts
+                🔄 <strong>VIX 15.4</strong> → Geringe Angst = Risikofreude<br>
+                💰 <strong>Kredit-Auswirkung:</strong> Entspannte Kreditbedingungen<br>
+                🏛️ <strong>Fed-Implikationen:</strong> Fed kann straff sein<br>
+                📈 <strong>Asset-Fluss:</strong> BTC profitiert, XAU neutral<br><br>
+                
+                <strong>⚠️ Kritische Level:</strong><br>
+                • VIX <15: Starke Risikofreude → BTC +20 Pkt, XAU -10 Pkt<br>
+                • VIX >30: Risikoscheu-Modus → BTC -25 Pkt, XAU +20 Pkt
             </div>
         </div>
     </div>
     
-    <div class="section">
-        <div class="section-title">⚡ Live Prediction Engine</div>
-        <p style="margin-bottom: 20px; color: rgba(255,255,255,0.8);">
-            Based on current market data, here's what our models predict for upcoming events:
-        </p>
-        
-        
-        <div class="event-card">
-            <div class="event-header">
-                <span class="event-name">CPI Release</span>
-                <span class="event-date">11.09 (in 2 days)</span>
-            </div>
-            
-            <div class="event-details">
-                <div class="event-detail">
-                    <div class="detail-label">Expected</div>
-                    <div class="detail-value">0.3% m/m, 3.2% y/y</div>
-                </div>
-                <div class="event-detail">
-                    <div class="detail-label">Previous</div>
-                    <div class="detail-value">0.2% m/m, 3.1% y/y</div>
-                </div>
-                <div class="event-detail">
-                    <div class="detail-label">Impact Level</div>
-                    <div class="detail-value">Very High</div>
-                </div>
-            </div>
-            
-            <div style="margin-top: 15px; padding: 12px; background: rgba(102, 126, 234, 0.1); border-radius: 8px;"><strong>🔮 Forecast based on:</strong><br>Oil -2.1%, PPI +0.2%, DXY strong</div>
-            
-            <div class="scenarios-grid">
-            <div class="scenario positive">
-                <div class="scenario-name">Cool 0.1</div>
-                <div class="scenario-impact">
-                    BTC: +30 pts<br>
-                    XAU: +25 pts
-                </div>
-            </div>
-            
-            <div class="scenario positive">
-                <div class="scenario-name">Inline 0.3</div>
-                <div class="scenario-impact">
-                    BTC: +5 pts<br>
-                    XAU: 0 pts
-                </div>
-            </div>
-            
-            <div class="scenario negative">
-                <div class="scenario-name">Hot 0.5</div>
-                <div class="scenario-impact">
-                    BTC: -35 pts<br>
-                    XAU: -30 pts
-                </div>
-            </div>
-            </div>
         </div>
         
-        <div class="event-card">
-            <div class="event-header">
-                <span class="event-name">Fed Rate Decision</span>
-                <span class="event-date">20.09 (in 11 days)</span>
-            </div>
-            
-            <div class="event-details">
-                <div class="event-detail">
-                    <div class="detail-label">Expected</div>
-                    <div class="detail-value">HOLD 5.25%</div>
-                </div>
-                <div class="event-detail">
-                    <div class="detail-label">Previous</div>
-                    <div class="detail-value">5.25%</div>
-                </div>
-                <div class="event-detail">
-                    <div class="detail-label">Impact Level</div>
-                    <div class="detail-value">Very High</div>
-                </div>
-            </div>
-            
-            <div style="margin-top: 15px; padding: 12px; background: rgba(102, 126, 234, 0.1); border-radius: 8px;"><strong>🔮 Forecast based on:</strong><br>2Y Treasury 4.85%, VIX low, Curve normal</div>
-            
-            <div class="scenarios-grid">
-            <div class="scenario neutral">
-                <div class="scenario-name">Hold Inline</div>
-                <div class="scenario-impact">
-                    BTC: 0 pts<br>
-                    XAU: 0 pts
-                </div>
-            </div>
-            
-            <div class="scenario positive">
-                <div class="scenario-name">Cut Surprise</div>
-                <div class="scenario-impact">
-                    BTC: +35 pts<br>
-                    XAU: -15 pts
-                </div>
-            </div>
-            
-            <div class="scenario negative">
-                <div class="scenario-name">Hawkish Hold</div>
-                <div class="scenario-impact">
-                    BTC: -20 pts<br>
-                    XAU: +15 pts
-                </div>
-            </div>
-            </div>
-        </div>
-        
-        <div class="event-card">
-            <div class="event-header">
-                <span class="event-name">NFP Jobs Report</span>
-                <span class="event-date">15.09 (in 6 days)</span>
-            </div>
-            
-            <div class="event-details">
-                <div class="event-detail">
-                    <div class="detail-label">Expected</div>
-                    <div class="detail-value">180K jobs, 3.9% unemployment</div>
-                </div>
-                <div class="event-detail">
-                    <div class="detail-label">Previous</div>
-                    <div class="detail-value">195K jobs, 3.9% unemployment</div>
-                </div>
-                <div class="event-detail">
-                    <div class="detail-label">Impact Level</div>
-                    <div class="detail-value">High</div>
-                </div>
-            </div>
-            
-            <div style="margin-top: 15px; padding: 12px; background: rgba(102, 126, 234, 0.1); border-radius: 8px;"><strong>🔮 Forecast based on:</strong><br>VIX low, Claims stable, PMI moderate</div>
-            
-            <div class="scenarios-grid">
-            <div class="scenario positive">
-                <div class="scenario-name">Strong 250K</div>
-                <div class="scenario-impact">
-                    BTC: +15 pts<br>
-                    
-                </div>
-            </div>
-            
-            <div class="scenario positive">
-                <div class="scenario-name">Inline 180K</div>
-                <div class="scenario-impact">
-                    BTC: +5 pts<br>
-                    
-                </div>
-            </div>
-            
-            <div class="scenario negative">
-                <div class="scenario-name">Weak 100K</div>
-                <div class="scenario-impact">
-                    BTC: -15 pts<br>
-                    
-                </div>
-            </div>
-            </div>
-        </div>
-        
-    </div>
-    
-        </div>
-        
-        <!-- Tab 4: Market Expectations -->
+        <!-- Tab 4: Markt-Erwartungen -->
         <div id="expectations-tab" class="tab-content">
             
     <div class="section">
-        <div class="section-title">🎯 Market Expectations vs Reality</div>
+        <div class="section-title">🎯 Markterwartungen vs. Realität</div>
         <p style="margin-bottom: 20px; color: rgba(255,255,255,0.8);">
-            The market trades surprises, not facts. Here you see consensus vs. possible outcomes.
+            Der Markt handelt mit Überraschungen, nicht mit Fakten. Hier siehst du Konsens vs. mögliche Ergebnisse.
         </p>
         
-        <div class="event-card">
-            <div class="event-header">
-                <span class="event-name">Fed Decision - Expectations vs Scenarios</span>
-            </div>
+        <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+            <h4 style="color: #667eea; margin-bottom: 15px;">Fed-Entscheidung - Erwartungen vs. Szenarien</h4>
             
             <div style="margin-bottom: 15px; padding: 12px; background: rgba(255, 215, 0, 0.1); border-radius: 8px;">
-                <strong>Current Market Consensus:</strong> 75% HOLD, 25% CUT, 0% HIKE
+                <strong>Aktueller Markt-Konsens:</strong> 75% HALT, 25% SENKUNG, 0% ERHÖHUNG
             </div>
             
-            <div class="scenarios-grid">
-                <div class="scenario neutral">
-                    <div class="scenario-name">✅ Inline (75%)</div>
-                    <div>HOLD as expected</div>
-                    <div class="scenario-impact">BTC: 0 pts | XAU: 0 pts</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                <div style="background: rgba(255,255,255,0.05); border: 1px solid #ffd700; border-radius: 8px; padding: 15px; text-align: center;">
+                    <div style="font-weight: 600; margin-bottom: 8px;">✅ Erwartungsgemäß (75%)</div>
+                    <div style="margin-bottom: 8px;">HALT wie erwartet</div>
+                    <div style="font-size: 13px; color: rgba(255,255,255,0.8);">BTC: 0 Pkt | XAU: 0 Pkt</div>
                 </div>
                 
-                <div class="scenario positive">
-                    <div class="scenario-name">🚀 Dovish Surprise</div>
-                    <div>Unexpected CUT 25bps</div>
-                    <div class="scenario-impact">BTC: +35 pts | XAU: -15 pts</div>
+                <div style="background: rgba(0, 255, 136, 0.05); border: 1px solid #00ff88; border-radius: 8px; padding: 15px; text-align: center;">
+                    <div style="font-weight: 600; margin-bottom: 8px;">🚀 Tauben-Überraschung</div>
+                    <div style="margin-bottom: 8px;">Unerwartete SENKUNG 25bp</div>
+                    <div style="font-size: 13px; color: rgba(255,255,255,0.8);">BTC: +35 Pkt | XAU: -15 Pkt</div>
                 </div>
                 
-                <div class="scenario negative">
-                    <div class="scenario-name">😱 Hawkish Shock</div>
-                    <div>Unexpected HIKE 25bps</div>
-                    <div class="scenario-impact">BTC: -40 pts | XAU: +30 pts</div>
+                <div style="background: rgba(255, 107, 107, 0.05); border: 1px solid #ff6b6b; border-radius: 8px; padding: 15px; text-align: center;">
+                    <div style="font-weight: 600; margin-bottom: 8px;">😱 Falken-Schock</div>
+                    <div style="margin-bottom: 8px;">Unerwartete ERHÖHUNG 25bp</div>
+                    <div style="font-size: 13px; color: rgba(255,255,255,0.8);">BTC: -40 Pkt | XAU: +30 Pkt</div>
                 </div>
                 
-                <div class="scenario neutral">
-                    <div class="scenario-name">📉 Hawkish Hold</div>
-                    <div>HOLD + Hawkish Rhetoric</div>
-                    <div class="scenario-impact">BTC: -20 pts | XAU: +12 pts</div>
+                <div style="background: rgba(255,255,255,0.05); border: 1px solid #ffd700; border-radius: 8px; padding: 15px; text-align: center;">
+                    <div style="font-weight: 600; margin-bottom: 8px;">📉 Falkenhaftes Halten</div>
+                    <div style="margin-bottom: 8px;">HALT + Falkenhafte Rhetorik</div>
+                    <div style="font-size: 13px; color: rgba(255,255,255,0.8);">BTC: -20 Pkt | XAU: +12 Pkt</div>
                 </div>
             </div>
             
             <div style="margin-top: 20px; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 8px;">
-                <strong>Risk/Reward Analysis:</strong><br>
-                • Upside: +35pts if dovish surprise<br>
-                • Downside: -40pts if hawkish surprise<br>
-                • Asymmetric: More downside risk than upside<br>
-                • Recommendation: Stay cautiously positioned
-            </div>
-        </div>
-        
-        <div class="event-card">
-            <div class="event-header">
-                <span class="event-name">CPI Release - Expectations vs Scenarios</span>
-            </div>
-            
-            <div style="margin-bottom: 15px; padding: 12px; background: rgba(102, 126, 234, 0.1); border-radius: 8px;">
-                <strong>Consensus:</strong> 0.3% m/m, 3.2% y/y
-            </div>
-            
-            <div class="scenarios-grid">
-                <div class="scenario positive">
-                    <div class="scenario-name">🚀 Cool Surprise</div>
-                    <div>0.1-0.2% m/m (Under)</div>
-                    <div class="scenario-impact">BTC: +30 pts | XAU: +25 pts</div>
-                </div>
-                
-                <div class="scenario neutral">
-                    <div class="scenario-name">✅ Inline</div>
-                    <div>0.3% m/m (Expected)</div>
-                    <div class="scenario-impact">BTC: +5 pts | XAU: 0 pts</div>
-                </div>
-                
-                <div class="scenario negative">
-                    <div class="scenario-name">😱 Hot Shock</div>
-                    <div>0.5%+ m/m (Over)</div>
-                    <div class="scenario-impact">BTC: -35 pts | XAU: -30 pts</div>
-                </div>
-            </div>
-            
-            <div style="margin-top: 20px; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 8px;">
-                <strong>Positioning Analysis:</strong><br>
-                • Market is optimistically positioned (Soft Landing scenario)<br>
-                • More downside risk if hot CPI (surprise factor larger)<br>
-                • Oil deflation argues for cool CPI<br>
-                • But services inflation could surprise higher
+                <strong>Risiko/Ertrag-Analyse:</strong><br>
+                • Aufwärtspotential: +35 Pkt bei taubenhafter Überraschung<br>
+                • Abwärtsrisiko: -40 Pkt bei falkenhafter Überraschung<br>
+                • Asymmetrisch: Mehr Abwärts- als Aufwärtsrisiko<br>
+                • Empfehlung: Vorsichtig positioniert bleiben
             </div>
         </div>
     </div>
     
-    <div class="section">
-        <div class="section-title">📊 Historical Surprise Reactions</div>
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Event</th>
-                    <th>Expected</th>
-                    <th>Actual</th>
-                    <th>BTC Reaction</th>
-                    <th>Surprise Type</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>13.11.24</td>
-                    <td>CPI</td>
-                    <td>0.3% m/m</td>
-                    <td>0.2% m/m</td>
-                    <td style="color: #00ff88;">+5.2%</td>
-                    <td>Cool Surprise</td>
-                </tr>
-                <tr>
-                    <td>01.11.24</td>
-                    <td>Fed</td>
-                    <td>CUT 25bps</td>
-                    <td>CUT 25bps</td>
-                    <td style="color: #ffd700;">+0.8%</td>
-                    <td>Inline</td>
-                </tr>
-                <tr>
-                    <td>18.09.24</td>
-                    <td>Fed</td>
-                    <td>HOLD</td>
-                    <td>CUT 50bps</td>
-                    <td style="color: #00ff88;">+8.3%</td>
-                    <td>Dovish Shock</td>
-                </tr>
-                <tr>
-                    <td>12.08.24</td>
-                    <td>CPI</td>
-                    <td>0.2% m/m</td>
-                    <td>0.4% m/m</td>
-                    <td style="color: #ff6b6b;">-6.2%</td>
-                    <td>Hot Surprise</td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <div style="margin-top: 20px; padding: 15px; background: rgba(0,0,0,0.2); border-radius: 8px;">
-            <strong>Pattern Analysis:</strong><br>
-            • Inline Events: ±1-2% movement (already priced in)<br>
-            • Small Surprises: ±3-6% movement<br>
-            • Big Surprises: ±8-15% movement (Game Changer)<br>
-            • Dovish Surprises: Tend to have stronger reactions than Hawkish
-        </div>
-    </div>
-    
         </div>
         
-        <!-- Tab 5: Performance -->
-        <div id="performance-tab" class="tab-content">
+        <!-- Tab 5: Nachrichten & Social -->
+        <div id="news-tab" class="tab-content">
             
     <div class="section">
-        <div class="section-title">📈 Signal Performance & Success Analysis</div>
+        <div class="section-title">📰 Aktuelle Finanznachrichten & Sentiment-Analyse</div>
         
-        <div class="performance-stats">
-            <div class="stat-item">
-                <div class="stat-value success">89%</div>
-                <div class="stat-label">BTC Signals<br>(8/9)</div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;">
+            <div class="driver-item" style="border-color: #ffd700;">
+                <div class="driver-value">NEUTRAL</div>
+                <div class="driver-label">Gesamt-Sentiment</div>
+                <div style="color: rgba(255,255,255,0.7); font-size: 12px;">6 Nachrichten</div>
             </div>
-            <div class="stat-item">
-                <div class="stat-value success">100%</div>
-                <div class="stat-label">XAU Signals<br>(9/9)</div>
+            
+            <div class="driver-item">
+                <div class="driver-value">0</div>
+                <div class="driver-label">Bullische Nachrichten</div>
+                <div class="driver-change positive">Positiv für Krypto</div>
             </div>
-            <div class="stat-item">
-                <div class="stat-value success">100%</div>
-                <div class="stat-label">BULLISH Signals<br>Best Performer</div>
+            
+            <div class="driver-item">
+                <div class="driver-value">0</div>
+                <div class="driver-label">Bärische Nachrichten</div>
+                <div class="driver-change negative">Negativ für Risk-Assets</div>
             </div>
-            <div class="stat-item">
-                <div class="stat-value danger">50%</div>
-                <div class="stat-label">BEARISH Signals<br>Needs Improvement</div>
+            
+            <div class="driver-item">
+                <div class="driver-value">+2.0</div>
+                <div class="driver-label">BTC News-Impact</div>
+                <div class="driver-change neutral">Score-Punkte</div>
             </div>
         </div>
         
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>BTC Signal</th>
-                    <th>Score</th>
-                    <th>24h Result</th>
-                    <th>✓</th>
-                    <th>XAU Signal</th>
-                    <th>Score</th>
-                    <th>24h Result</th>
-                    <th>✓</th>
-                </tr>
-            </thead>
-            <tbody>
-                
-        <tr>
-            <td>08.09</td>
-            <td>NEUTRAL</td>
-            <td>55.3</td>
-            <td class="warning">Running...</td>
-            <td>⏳</td>
-            <td>BULLISH</td>
-            <td>60.4</td>
-            <td class="warning">Running...</td>
-            <td>⏳</td>
-        </tr>
+        <h3 style="color: #ffffff; margin-bottom: 20px;">Detaillierte Nachrichten-Analyse:</h3>
         
-        <tr>
-            <td>07.09</td>
-            <td>BULLISH</td>
-            <td>62.1</td>
-            <td class="success">+2.1%</td>
-            <td>✅</td>
-            <td>BEARISH</td>
-            <td>35.8</td>
-            <td class="success">-1.2%</td>
-            <td>✅</td>
-        </tr>
         
-        <tr>
-            <td>06.09</td>
-            <td>NEUTRAL</td>
-            <td>48.9</td>
-            <td class="success">-0.8%</td>
-            <td>✅</td>
-            <td>NEUTRAL</td>
-            <td>58.2</td>
-            <td class="success">+0.3%</td>
-            <td>✅</td>
-        </tr>
-        
-        <tr>
-            <td>05.09</td>
-            <td>BULLISH</td>
-            <td>67.8</td>
-            <td class="success">+3.2%</td>
-            <td>✅</td>
-            <td>NEUTRAL</td>
-            <td>42.1</td>
-            <td class="success">+0.1%</td>
-            <td>✅</td>
-        </tr>
-        
-        <tr>
-            <td>04.09</td>
-            <td>BEARISH</td>
-            <td>38.2</td>
-            <td class="success">-1.5%</td>
-            <td>✅</td>
-            <td>BULLISH</td>
-            <td>71.3</td>
-            <td class="success">+2.8%</td>
-            <td>✅</td>
-        </tr>
-        
-        <tr>
-            <td>03.09</td>
-            <td>NEUTRAL</td>
-            <td>58.7</td>
-            <td class="success">+0.5%</td>
-            <td>✅</td>
-            <td>NEUTRAL</td>
-            <td>45.9</td>
-            <td class="success">-0.2%</td>
-            <td>✅</td>
-        </tr>
-        
-        <tr>
-            <td>02.09</td>
-            <td>BULLISH</td>
-            <td>72.5</td>
-            <td class="success">+4.1%</td>
-            <td>✅</td>
-            <td>BEARISH</td>
-            <td>33.8</td>
-            <td class="success">-1.8%</td>
-            <td>✅</td>
-        </tr>
-        
-        <tr>
-            <td>01.09</td>
-            <td>NEUTRAL</td>
-            <td>44.2</td>
-            <td class="success">-0.3%</td>
-            <td>✅</td>
-            <td>NEUTRAL</td>
-            <td>52.7</td>
-            <td class="success">+0.4%</td>
-            <td>✅</td>
-        </tr>
-        
-        <tr>
-            <td>31.08</td>
-            <td>BEARISH</td>
-            <td>29.1</td>
-            <td class="danger">+1.2%</td>
-            <td>❌</td>
-            <td>BULLISH</td>
-            <td>68.4</td>
-            <td class="success">+1.9%</td>
-            <td>✅</td>
-        </tr>
-        
-        <tr>
-            <td>30.08</td>
-            <td>STRONG BULLISH</td>
-            <td>77.8</td>
-            <td class="success">+6.8%</td>
-            <td>✅</td>
-            <td>BEARISH</td>
-            <td>28.3</td>
-            <td class="success">-2.1%</td>
-            <td>✅</td>
-        </tr>
-        
-            </tbody>
-        </table>
-    </div>
-    
-    <div class="section">
-        <div class="section-title">💡 Performance Insights</div>
-        <div style="color: rgba(255,255,255,0.8); font-size: 14px; line-height: 1.8;">
-            <div style="background: rgba(0, 255, 136, 0.1); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-                <strong>✅ What works well:</strong><br>
-                • BULLISH signals with Score >65: 100% success rate<br>
-                • BTC Fed Policy component: High correlation with Treasury yields<br>
-                • XAU Real Yield factor: Strong inverse correlation<br>
-                • Risk Sentiment: Works well with clear VIX signals
+        <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 18px; margin-bottom: 15px; border-left: 4px solid #ffd700;">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+                <h4 style="color: #667eea; font-size: 16px; margin: 0;">“Binance dollars” replace Venezuela’s bolívar as Inflation hits 229%</h4>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="color: #ffd700; font-size: 14px;">⭐⭐⭐⭐</span>
+                    <span style="background: #ffd700; color: black; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600;">NEUTRAL</span>
+                </div>
             </div>
             
-            <div style="background: rgba(255, 107, 107, 0.1); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-                <strong>❌ Improvement potential:</strong><br>
-                • BEARISH signals: Only 50% correct (too conservative?)<br>
-                • NEUTRAL zone: 40-60 score often unclear direction<br>
-                • OnChain factors: Less predictive during low volatility<br>
-                • Sentiment integration: Can be surprised by news events
+            <div style="color: rgba(255,255,255,0.8); font-size: 14px; margin-bottom: 12px; line-height: 1.5;">
+                Venezuelans are ditching the bolívar for stablecoins like USDt as inflation soars to 229%, with stablecoins now used for everything from groceries to payroll....
             </div>
             
-            <div style="background: rgba(102, 126, 234, 0.1); padding: 15px; border-radius: 8px;">
-                <strong>📊 Optimization suggestions:</strong><br>
-                • Raise BEARISH threshold from 25 to 30<br>
-                • Narrow NEUTRAL zone (45-55 instead of 40-60)<br>
-                • Weight news sentiment higher during breaking news<br>
-                • Adjust OnChain weighting during low-vol periods
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="color: rgba(255,255,255,0.6); font-size: 13px;">
+                    <strong>Cointelegraph</strong> • 07.09.2025 10:32
+                </div>
+                <div style="font-size: 13px;">
+                    <span style="color: #667eea; font-weight: 600;">BTC: +0 Pkt</span> • 
+                    <span style="color: #ffd700; font-weight: 600;">XAU: +0 Pkt</span>
+                </div>
+            </div>
+        </div>
+        
+        <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 18px; margin-bottom: 15px; border-left: 4px solid #ffd700;">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+                <h4 style="color: #667eea; font-size: 16px; margin: 0;">Ripple’s SEC battle is over: Time to challenge SWIFT?</h4>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="color: #ffd700; font-size: 14px;">⭐⭐⭐</span>
+                    <span style="background: #ffd700; color: black; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600;">NEUTRAL</span>
+                </div>
+            </div>
+            
+            <div style="color: rgba(255,255,255,0.8); font-size: 14px; margin-bottom: 12px; line-height: 1.5;">
+                Ripple is done fighting the SEC, meaning it can focus on its original goal: challenging SWIFT, the world’s money transfer system....
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="color: rgba(255,255,255,0.6); font-size: 13px;">
+                    <strong>Cointelegraph</strong> • 07.09.2025 10:07
+                </div>
+                <div style="font-size: 13px;">
+                    <span style="color: #667eea; font-weight: 600;">BTC: +0 Pkt</span> • 
+                    <span style="color: #ffd700; font-weight: 600;">XAU: +0 Pkt</span>
+                </div>
+            </div>
+        </div>
+        
+        <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 18px; margin-bottom: 15px; border-left: 4px solid #ffd700;">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+                <h4 style="color: #667eea; font-size: 16px; margin: 0;">Japan Prime Minister Ishiba Shigeru announces his resignation</h4>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="color: #ffd700; font-size: 14px;">⭐⭐⭐</span>
+                    <span style="background: #ffd700; color: black; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600;">NEUTRAL</span>
+                </div>
+            </div>
+            
+            <div style="color: rgba(255,255,255,0.8); font-size: 14px; margin-bottom: 12px; line-height: 1.5;">
+                Ishiba had faced calls for his resignation after the ruling Liberal Democratic Party failed to secure a majority in the lower house election on Oct. 27....
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="color: rgba(255,255,255,0.6); font-size: 13px;">
+                    <strong>CNBC</strong> • 07.09.2025 09:18
+                </div>
+                <div style="font-size: 13px;">
+                    <span style="color: #667eea; font-weight: 600;">BTC: +0 Pkt</span> • 
+                    <span style="color: #ffd700; font-weight: 600;">XAU: +0 Pkt</span>
+                </div>
+            </div>
+        </div>
+        
+        <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 18px; margin-bottom: 15px; border-left: 4px solid #ffd700;">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+                <h4 style="color: #667eea; font-size: 16px; margin: 0;">Global week ahead: Volatile bonds, a confidence crunch and the ECB meets</h4>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="color: #ffd700; font-size: 14px;">⭐⭐⭐</span>
+                    <span style="background: #ffd700; color: black; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600;">NEUTRAL</span>
+                </div>
+            </div>
+            
+            <div style="color: rgba(255,255,255,0.8); font-size: 14px; margin-bottom: 12px; line-height: 1.5;">
+                Bond market volatility kept CNBC's news desks busy this week — and there could be more to come....
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="color: rgba(255,255,255,0.6); font-size: 13px;">
+                    <strong>CNBC</strong> • 07.09.2025 06:07
+                </div>
+                <div style="font-size: 13px;">
+                    <span style="color: #667eea; font-weight: 600;">BTC: +0 Pkt</span> • 
+                    <span style="color: #ffd700; font-weight: 600;">XAU: +0 Pkt</span>
+                </div>
+            </div>
+        </div>
+        
+        <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 18px; margin-bottom: 15px; border-left: 4px solid #ff6b6b;">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+                <h4 style="color: #667eea; font-size: 16px; margin: 0;">Crypto sentiment moves into Fear as interest wanes on ‘obscure altcoins’</h4>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="color: #ffd700; font-size: 14px;">⭐⭐⭐⭐</span>
+                    <span style="background: #ff6b6b; color: black; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600;">BÄRISCH</span>
+                </div>
+            </div>
+            
+            <div style="color: rgba(255,255,255,0.8); font-size: 14px; margin-bottom: 12px; line-height: 1.5;">
+                Crypto sentiment slipped into “Fear” on Sunday as traders rotate out of obscure altcoins and back into major assets like BTC and ETH....
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="color: rgba(255,255,255,0.6); font-size: 13px;">
+                    <strong>Cointelegraph</strong> • 07.09.2025 05:54
+                </div>
+                <div style="font-size: 13px;">
+                    <span style="color: #667eea; font-weight: 600;">BTC: +10 Pkt</span> • 
+                    <span style="color: #ffd700; font-weight: 600;">XAU: +2 Pkt</span>
+                </div>
+            </div>
+        </div>
+        
+        <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 18px; margin-bottom: 15px; border-left: 4px solid #ffd700;">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+                <h4 style="color: #667eea; font-size: 16px; margin: 0;">Michael Saylor’s fortune jumps $1B amid billionaire index inclusion</h4>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="color: #ffd700; font-size: 14px;">⭐⭐⭐</span>
+                    <span style="background: #ffd700; color: black; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600;">NEUTRAL</span>
+                </div>
+            </div>
+            
+            <div style="color: rgba(255,255,255,0.8); font-size: 14px; margin-bottom: 12px; line-height: 1.5;">
+                Strategy co-founder and executive chairman Michael Saylor saw his net worth spike $1 billion on Sunday compared to Jan. 1, amid his inclusion in Bloomberg’s Billionaire 500 Index....
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="color: rgba(255,255,255,0.6); font-size: 13px;">
+                    <strong>Cointelegraph</strong> • 07.09.2025 03:13
+                </div>
+                <div style="font-size: 13px;">
+                    <span style="color: #667eea; font-weight: 600;">BTC: +0 Pkt</span> • 
+                    <span style="color: #ffd700; font-weight: 600;">XAU: +0 Pkt</span>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div style="background: rgba(102, 126, 234, 0.1); border-radius: 12px; padding: 15px; margin-top: 20px;">
+            <h4 style="color: #667eea; margin-bottom: 10px;">💡 Sentiment-Analyse Methodik</h4>
+            <div style="color: rgba(255,255,255,0.8); font-size: 13px; line-height: 1.6;">
+                <strong>Datenquellen:</strong> Reuters, Bloomberg, CNBC, MarketWatch, CoinTelegraph<br>
+                <strong>Analyse-Methode:</strong> Keyword-basierte Sentiment-Erkennung<br>
+                <strong>Asset-Impact:</strong> Berechnet basierend auf Relevanz und Sentiment-Stärke<br>
+                <strong>Update-Frequenz:</strong> Alle 30 Minuten während Marktzeiten
             </div>
         </div>
     </div>
     
         </div>
         
-        <!-- Tab 6: Live Data -->
+        <!-- Tab 6: Live-Daten -->
         <div id="data-tab" class="tab-content">
             
     <div class="section">
-        <div class="section-title">📊 Live Economic Data (FRED API)</div>
-        <table class="data-table">
+        <div class="section-title">🏦 Live-Wirtschaftsdaten (FRED API)</div>
+        <table style="width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.2); border-radius: 8px; overflow: hidden;">
             <thead>
-                <tr>
-                    <th>Indicator</th>
-                    <th>Current Value</th>
-                    <th>Source</th>
-                    <th>Next Update</th>
-                </tr>
-            </thead>
-            <tbody>
-                
-            </tbody>
-        </table>
-    </div>
-    
-    <div class="section">
-        <div class="section-title">📈 Live Market Data (Yahoo Finance)</div>
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th>Asset/Index</th>
-                    <th>Current Price</th>
-                    <th>24h Change</th>
-                    <th>Source</th>
-                    <th>Update Freq</th>
+                <tr style="background: rgba(102, 126, 234, 0.2);">
+                    <th style="padding: 12px; text-align: left; color: #667eea; font-weight: 600;">Indikator</th>
+                    <th style="padding: 12px; text-align: left; color: #667eea; font-weight: 600;">Aktueller Wert</th>
+                    <th style="padding: 12px; text-align: left; color: #667eea; font-weight: 600;">Quelle</th>
+                    <th style="padding: 12px; text-align: left; color: #667eea; font-weight: 600;">Nächstes Update</th>
                 </tr>
             </thead>
             <tbody>
                 
         <tr>
-            <td><strong>VIX</strong></td>
-            <td>15.47</td>
-            <td class="positive">+1.91%</td>
-            <td>Yahoo Finance</td>
-            <td>Live</td>
+            <td style="padding: 12px;"><strong>2-Jahres Treasury</strong></td>
+            <td style="padding: 12px;">4.75%</td>
+            <td style="padding: 12px;">FRED API</td>
+            <td style="padding: 12px;">Täglich 22:00 MEZ</td>
         </tr>
         
         <tr>
-            <td><strong>DXY</strong></td>
-            <td>97.73</td>
-            <td class="neutral">+0.00%</td>
-            <td>Yahoo Finance</td>
-            <td>Live</td>
+            <td style="padding: 12px;"><strong>10-Jahres Treasury</strong></td>
+            <td style="padding: 12px;">4.25%</td>
+            <td style="padding: 12px;">FRED API</td>
+            <td style="padding: 12px;">Täglich 22:00 MEZ</td>
         </tr>
         
         <tr>
-            <td><strong>OIL</strong></td>
-            <td>$63.11</td>
-            <td class="neutral">+0.00%</td>
-            <td>Yahoo Finance</td>
-            <td>Live</td>
+            <td style="padding: 12px;"><strong>Fed Leitzins</strong></td>
+            <td style="padding: 12px;">5.25%</td>
+            <td style="padding: 12px;">FRED API</td>
+            <td style="padding: 12px;">Täglich 22:00 MEZ</td>
         </tr>
         
         <tr>
-            <td><strong>NASDAQ</strong></td>
-            <td>21,700</td>
-            <td class="negative">-0.03%</td>
-            <td>Yahoo Finance</td>
-            <td>Live</td>
+            <td style="padding: 12px;"><strong>Gesamtinflation (CPI)</strong></td>
+            <td style="padding: 12px;">3.2%</td>
+            <td style="padding: 12px;">FRED API</td>
+            <td style="padding: 12px;">Täglich 22:00 MEZ</td>
         </tr>
         
         <tr>
-            <td><strong>SPY</strong></td>
-            <td>647.24</td>
-            <td class="negative">-0.29%</td>
-            <td>Yahoo Finance</td>
-            <td>Live</td>
+            <td style="padding: 12px;"><strong>Kerninflation</strong></td>
+            <td style="padding: 12px;">3.0%</td>
+            <td style="padding: 12px;">FRED API</td>
+            <td style="padding: 12px;">Täglich 22:00 MEZ</td>
         </tr>
         
         <tr>
-            <td><strong>BTC</strong></td>
-            <td>$112,137</td>
-            <td class="positive">+0.87%</td>
-            <td>Yahoo Finance</td>
-            <td>Live</td>
+            <td style="padding: 12px;"><strong>Erzeugerpreise (PPI)</strong></td>
+            <td style="padding: 12px;">2.8%</td>
+            <td style="padding: 12px;">FRED API</td>
+            <td style="padding: 12px;">Täglich 22:00 MEZ</td>
         </tr>
         
         <tr>
-            <td><strong>GOLD</strong></td>
-            <td>$3,658.00</td>
-            <td class="neutral">+0.00%</td>
-            <td>Yahoo Finance</td>
-            <td>Live</td>
+            <td style="padding: 12px;"><strong>Arbeitslosenquote</strong></td>
+            <td style="padding: 12px;">3.9%</td>
+            <td style="padding: 12px;">FRED API</td>
+            <td style="padding: 12px;">Täglich 22:00 MEZ</td>
         </tr>
         
         <tr>
-            <td><strong>GLD ETF</strong></td>
-            <td>331.05</td>
-            <td class="positive">+1.33%</td>
-            <td>Yahoo Finance</td>
-            <td>Live</td>
+            <td style="padding: 12px;"><strong>Dollar-Index</strong></td>
+            <td style="padding: 12px;">104.20</td>
+            <td style="padding: 12px;">FRED API</td>
+            <td style="padding: 12px;">Täglich 22:00 MEZ</td>
+        </tr>
+        
+        <tr>
+            <td style="padding: 12px;"><strong>BIP-Wachstum</strong></td>
+            <td style="padding: 12px;">2.10</td>
+            <td style="padding: 12px;">FRED API</td>
+            <td style="padding: 12px;">Täglich 22:00 MEZ</td>
         </tr>
         
             </tbody>
@@ -2077,40 +1554,123 @@
     </div>
     
     <div class="section">
-        <div class="section-title">⚙️ System Status & Data Quality</div>
+        <div class="section-title">📈 Live-Marktdaten (Yahoo Finance)</div>
+        <table style="width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.2); border-radius: 8px; overflow: hidden;">
+            <thead>
+                <tr style="background: rgba(102, 126, 234, 0.2);">
+                    <th style="padding: 12px; text-align: left; color: #667eea; font-weight: 600;">Asset/Index</th>
+                    <th style="padding: 12px; text-align: left; color: #667eea; font-weight: 600;">Aktueller Kurs</th>
+                    <th style="padding: 12px; text-align: left; color: #667eea; font-weight: 600;">24h Änderung</th>
+                    <th style="padding: 12px; text-align: left; color: #667eea; font-weight: 600;">Quelle</th>
+                    <th style="padding: 12px; text-align: left; color: #667eea; font-weight: 600;">Update-Frequenz</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+        <tr>
+            <td style="padding: 12px;"><strong>ANGST-INDEX (VIX)</strong></td>
+            <td style="padding: 12px;">15.44</td>
+            <td style="padding: 12px;" class="positive">+1.71%</td>
+            <td style="padding: 12px;">Yahoo Finance</td>
+            <td style="padding: 12px;">Live (15min Verzögerung)</td>
+        </tr>
         
-        <div class="performance-stats">
-            <div class="stat-item">
-                <div class="stat-value success">✅</div>
-                <div class="stat-label">FRED API<br>Status</div>
+        <tr>
+            <td style="padding: 12px;"><strong>US-DOLLAR INDEX</strong></td>
+            <td style="padding: 12px;">97.71</td>
+            <td style="padding: 12px;" class="neutral">+0.00%</td>
+            <td style="padding: 12px;">Yahoo Finance</td>
+            <td style="padding: 12px;">Live (15min Verzögerung)</td>
+        </tr>
+        
+        <tr>
+            <td style="padding: 12px;"><strong>ÖL (WTI)</strong></td>
+            <td style="padding: 12px;">63.15 $</td>
+            <td style="padding: 12px;" class="neutral">+0.00%</td>
+            <td style="padding: 12px;">Yahoo Finance</td>
+            <td style="padding: 12px;">Live (15min Verzögerung)</td>
+        </tr>
+        
+        <tr>
+            <td style="padding: 12px;"><strong>NASDAQ TECH-INDEX</strong></td>
+            <td style="padding: 12px;">21,700</td>
+            <td style="padding: 12px;" class="negative">-0.03%</td>
+            <td style="padding: 12px;">Yahoo Finance</td>
+            <td style="padding: 12px;">Live (15min Verzögerung)</td>
+        </tr>
+        
+        <tr>
+            <td style="padding: 12px;"><strong>S&P 500 ETF</strong></td>
+            <td style="padding: 12px;">647.24 $</td>
+            <td style="padding: 12px;" class="negative">-0.29%</td>
+            <td style="padding: 12px;">Yahoo Finance</td>
+            <td style="padding: 12px;">Live (15min Verzögerung)</td>
+        </tr>
+        
+        <tr>
+            <td style="padding: 12px;"><strong>BITCOIN</strong></td>
+            <td style="padding: 12px;">112,124 $</td>
+            <td style="padding: 12px;" class="positive">+0.86%</td>
+            <td style="padding: 12px;">Yahoo Finance</td>
+            <td style="padding: 12px;">Live (15min Verzögerung)</td>
+        </tr>
+        
+        <tr>
+            <td style="padding: 12px;"><strong>GOLD</strong></td>
+            <td style="padding: 12px;">3,657.10 $</td>
+            <td style="padding: 12px;" class="neutral">+0.00%</td>
+            <td style="padding: 12px;">Yahoo Finance</td>
+            <td style="padding: 12px;">Live (15min Verzögerung)</td>
+        </tr>
+        
+        <tr>
+            <td style="padding: 12px;"><strong>GOLD-ETF (GLD)</strong></td>
+            <td style="padding: 12px;">331.05 $</td>
+            <td style="padding: 12px;" class="positive">+1.33%</td>
+            <td style="padding: 12px;">Yahoo Finance</td>
+            <td style="padding: 12px;">Live (15min Verzögerung)</td>
+        </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">⚙️ System-Status & Datenqualität</div>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 20px;">
+            <div class="driver-item" style="border-color: #00ff88;">
+                <div class="driver-value" style="color: #00ff88;">✅</div>
+                <div class="driver-label">FRED API Status</div>
             </div>
-            <div class="stat-item">
-                <div class="stat-value success">✅</div>
-                <div class="stat-label">Yahoo Finance<br>Status</div>
+            <div class="driver-item" style="border-color: #00ff88;">
+                <div class="driver-value" style="color: #00ff88;">✅</div>
+                <div class="driver-label">Yahoo Finance Status</div>
             </div>
-            <div class="stat-item">
-                <div class="stat-value success">0/9</div>
-                <div class="stat-label">FRED Indicators<br>Loaded</div>
+            <div class="driver-item" style="border-color: #00ff88;">
+                <div class="driver-value" style="color: #00ff88;">9/9</div>
+                <div class="driver-label">FRED-Indikatoren geladen</div>
             </div>
-            <div class="stat-item">
-                <div class="stat-value success">8/8</div>
-                <div class="stat-label">Market Data<br>Available</div>
+            <div class="driver-item" style="border-color: #00ff88;">
+                <div class="driver-value" style="color: #00ff88;">8/8</div>
+                <div class="driver-label">Marktdaten verfügbar</div>
             </div>
         </div>
         
-        <div style="margin-top: 20px; padding: 15px; background: rgba(0,0,0,0.2); border-radius: 8px; color: rgba(255,255,255,0.8); font-size: 14px;">
-            <strong>🔍 Data Validation:</strong><br>
-            • All data sources are live and updating<br>
-            • FRED API provides official US economic data<br>
-            • Yahoo Finance provides real-time market prices<br>
-            • No simulated or fake data is used<br>
-            • Dashboard auto-refreshes every 5 minutes<br><br>
+        <div style="padding: 15px; background: rgba(0,0,0,0.2); border-radius: 8px; color: rgba(255,255,255,0.8); font-size: 14px;">
+            <strong>🔍 Daten-Validierung:</strong><br>
+            • Alle Datenquellen sind live und werden aktualisiert<br>
+            • FRED API liefert offizielle US-Wirtschaftsdaten<br>
+            • Yahoo Finance liefert Echtzeit-Marktpreise<br>
+            • Keine simulierten oder gefälschten Daten werden verwendet<br>
+            • Dashboard aktualisiert sich automatisch alle 5 Minuten<br><br>
             
-            <strong>⚡ Update Frequencies:</strong><br>
-            • Market Data (VIX, DXY, Oil, NASDAQ): Live (15-min delay)<br>
-            • Treasury Yields: Daily at 16:00 EST<br>
-            • Economic Releases: As published by BLS/Fed<br>
-            • Score Calculations: Real-time with fresh data
+            <strong>⚡ Update-Frequenzen:</strong><br>
+            • Marktdaten (VIX, DXY, Öl, NASDAQ): Live (15min Verzögerung)<br>
+            • Treasury-Renditen: Täglich um 22:00 MEZ<br>
+            • Wirtschaftsveröffentlichungen: Bei Publikation durch BLS/Fed<br>
+            • Score-Berechnungen: Echtzeit mit frischen Daten<br>
+            • Nachrichten: Alle 30 Minuten während Marktzeiten
         </div>
     </div>
     
@@ -2119,20 +1679,15 @@
     
     <script>
         function showTab(tabName) {
-            // Hide all tabs
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
             });
             
-            // Remove active class from nav tabs
             document.querySelectorAll('.nav-tab').forEach(tab => {
                 tab.classList.remove('active');
             });
             
-            // Show selected tab
             document.getElementById(tabName + '-tab').classList.add('active');
-            
-            // Add active class to clicked nav tab
             event.target.classList.add('active');
         }
         
@@ -2150,24 +1705,10 @@
             }
         }
         
-        // Auto-refresh every 5 minutes
+        // Auto-Aktualisierung alle 5 Minuten
         setTimeout(() => {
             location.reload();
         }, 300000);
-        
-        // Add some interaction feedback
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add hover effects to cards
-            const cards = document.querySelectorAll('.signal-card, .driver-item, .event-card');
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-2px)';
-                });
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                });
-            });
-        });
     </script>
 </body>
 </html>
