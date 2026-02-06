@@ -49,6 +49,7 @@
     <button class="tab" data-tab="ta">Technische Analyse</button>
     <button class="tab" data-tab="risk">Risikomanagement</button>
     <button class="tab" data-tab="market">Markt-Uebersicht</button>
+    <button class="tab" data-tab="backtest">Backtest</button>
 </nav>
 
 <!-- ═══════════ MAIN CONTENT ═══════════ -->
@@ -117,6 +118,65 @@
         </div>
     </div>
 
+    <!-- ─── Backtest Tab ─────────────────────────── -->
+    <div class="tab-content" id="tab-backtest">
+        <div class="card" style="margin-bottom: 20px;">
+            <div class="card-header">
+                <div class="card-title">Backtest-Konfiguration</div>
+            </div>
+            <div class="risk-input-group">
+                <div class="risk-input">
+                    <label>Asset</label>
+                    <select id="bt-symbol">
+                        <option value="BTC">Bitcoin (BTC)</option>
+                        <option value="ETH">Ethereum (ETH)</option>
+                        <option value="SOL">Solana (SOL)</option>
+                        <option value="BNB">BNB</option>
+                        <option value="XRP">XRP</option>
+                        <option value="ADA">Cardano (ADA)</option>
+                        <option value="DOGE">Dogecoin (DOGE)</option>
+                        <option value="DOT">Polkadot (DOT)</option>
+                        <option value="AVAX">Avalanche (AVAX)</option>
+                        <option value="LINK">Chainlink (LINK)</option>
+                    </select>
+                </div>
+                <div class="risk-input">
+                    <label>Zeitraum (Tage)</label>
+                    <select id="bt-days">
+                        <option value="90">90 Tage</option>
+                        <option value="180">180 Tage</option>
+                        <option value="365" selected>1 Jahr</option>
+                    </select>
+                </div>
+                <div class="risk-input">
+                    <label>Startkapital ($)</label>
+                    <input type="number" id="bt-balance" value="10000" step="1000">
+                </div>
+                <div class="risk-input">
+                    <label>Risiko/Trade (%)</label>
+                    <input type="number" id="bt-risk" value="2" step="0.5" min="0.5" max="10">
+                </div>
+            </div>
+            <div style="display: flex; gap: 12px;">
+                <button class="btn btn-primary" id="btn-backtest" style="flex: 1;">Backtest starten</button>
+                <button class="btn btn-secondary" id="btn-backtest-all" style="flex: 1;">Alle Assets testen</button>
+            </div>
+        </div>
+
+        <div id="backtest-container">
+            <div class="empty-state">
+                <div class="empty-state-icon">&#x23F1;</div>
+                <p>Konfiguriere oben und starte den Backtest</p>
+            </div>
+        </div>
+
+        <div class="disclaimer" style="margin-top: 20px;">
+            <strong>Backtest-Methodik:</strong> Jeder Trade wird mit 0.1% Slippage und 0.1% Kommission berechnet.
+            Eine Position pro Asset gleichzeitig. Exit bei Stop-Loss, Take-Profit oder Signal-Umkehr.
+            Position Sizing nach festem Risikoprozentsatz. Vergangene Performance ist kein Indikator fuer zukuenftige Ergebnisse.
+        </div>
+    </div>
+
 </main>
 
 <!-- ═══════════ SCRIPTS ═══════════ -->
@@ -124,6 +184,7 @@
 <script src="js/api.js"></script>
 <script src="js/strategies.js"></script>
 <script src="js/risk.js"></script>
+<script src="js/backtest.js"></script>
 <script src="js/ui.js"></script>
 
 </body>

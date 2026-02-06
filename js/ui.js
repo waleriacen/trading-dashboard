@@ -774,6 +774,394 @@ const UI = (() => {
     }
   }
 
+  // ─── Draw Equity Chart (pure Canvas) ─────────────────
+  function drawEquityChart(canvasId, equityCurve, drawdownSeries) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas || !equityCurve || equityCurve.length < 2) return;
+
+    const ctx = canvas.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+    const W = rect.width;
+    const H = rect.height;
+
+    ctx.clearRect(0, 0, W, H);
+
+    const padding = { top: 20, right: 12, bottom: 24, left: 60 };
+    const chartW = W - padding.left - padding.right;
+    const chartH = H - padding.top - padding.bottom;
+
+    const minVal = Math.min(...equityCurve);
+    const maxVal = Math.max(...equityCurve);
+    const range = maxVal - minVal || 1;
+
+    function x(i) { return padding.left + (i / (equityCurve.length - 1)) * chartW; }
+    function y(v) { return padding.top + chartH - ((v - minVal) / range) * chartH; }
+
+    // Grid lines
+    ctx.strokeStyle = 'rgba(42, 58, 78, 0.5)';
+    ctx.lineWidth = 0.5;
+    for (let i = 0; i <= 4; i++) {
+      const yPos = padding.top + (chartH / 4) * i;
+      ctx.beginPath();
+      ctx.moveTo(padding.left, yPos);
+      ctx.lineTo(W - padding.right, yPos);
+      ctx.stroke();
+
+      const val = maxVal - (range / 4) * i;
+      ctx.fillStyle = '#64748b';
+      ctx.font = '10px Inter, sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillText('$' + val.toFixed(0), padding.left - 6, yPos + 4);
+    }
+
+    // Equity fill
+    ctx.beginPath();
+    ctx.moveTo(x(0), y(equityCurve[0]));
+    for (let i = 1; i < equityCurve.length; i++) {
+      ctx.lineTo(x(i), y(equityCurve[i]));
+    }
+    ctx.lineTo(x(equityCurve.length - 1), padding.top + chartH);
+    ctx.lineTo(x(0), padding.top + chartH);
+    ctx.closePath();
+
+    const finalAboveStart = equityCurve[equityCurve.length - 1] >= equityCurve[0];
+    const gradient = ctx.createLinearGradient(0, padding.top, 0, padding.top + chartH);
+    if (finalAboveStart) {
+      gradient.addColorStop(0, 'rgba(16, 185, 129, 0.3)');
+      gradient.addColorStop(1, 'rgba(16, 185, 129, 0)');
+    } else {
+      gradient.addColorStop(0, 'rgba(239, 68, 68, 0.3)');
+      gradient.addColorStop(1, 'rgba(239, 68, 68, 0)');
+    }
+    ctx.fillStyle = gradient;
+    ctx.fill();
+
+    // Equity line
+    ctx.beginPath();
+    ctx.moveTo(x(0), y(equityCurve[0]));
+    for (let i = 1; i < equityCurve.length; i++) {
+      ctx.lineTo(x(i), y(equityCurve[i]));
+    }
+    ctx.strokeStyle = finalAboveStart ? '#10b981' : '#ef4444';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Starting balance line
+    ctx.beginPath();
+    ctx.setLineDash([4, 4]);
+    ctx.moveTo(padding.left, y(equityCurve[0]));
+    ctx.lineTo(W - padding.right, y(equityCurve[0]));
+    ctx.strokeStyle = 'rgba(148, 163, 184, 0.4)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Labels
+    ctx.fillStyle = '#64748b';
+    ctx.font = '10px Inter, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText('Start', padding.left, padding.top + chartH + 16);
+    ctx.textAlign = 'right';
+    ctx.fillText('Ende', W - padding.right, padding.top + chartH + 16);
+  }
+
+  // ─── Render Backtest Results ────────────────────────────
+  function renderBacktestResults(symbol, btResults, dateRange) {
+    const container = document.getElementById('backtest-container');
+    if (!container) return;
+
+    if (!btResults || Object.keys(btResults).length === 0) {
+      container.innerHTML = '<div class="error-msg">Backtest hat keine Ergebnisse geliefert.</div>';
+      return;
+    }
+
+    let html = '';
+
+    // Date range info
+    if (dateRange) {
+      html += `<div style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+        ${symbol} | ${dateRange.from} bis ${dateRange.to}
+      </div>`;
+    }
+
+    // Comparison table
+    html += `
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="card-header">
+          <div class="card-title">Strategie-Vergleich: ${symbol}</div>
+        </div>
+        <div style="overflow-x: auto;">
+          <table class="bt-comparison-table">
+            <thead>
+              <tr>
+                <th>Strategie</th>
+                <th>Rendite</th>
+                <th>Win Rate</th>
+                <th>Trades</th>
+                <th>Profit Factor</th>
+                <th>Max Drawdown</th>
+                <th>Sharpe</th>
+                <th>Endkapital</th>
+              </tr>
+            </thead>
+            <tbody>
+    `;
+
+    // Find best/worst for highlighting
+    const entries = Object.entries(btResults).filter(([_, r]) => r.stats && !r.error);
+    const bestReturn = Math.max(...entries.map(([_, r]) => r.stats.totalReturn));
+    const worstReturn = Math.min(...entries.map(([_, r]) => r.stats.totalReturn));
+
+    for (const [name, result] of entries) {
+      const s = result.stats;
+      const isB = s.totalReturn === bestReturn && bestReturn > 0;
+      const isW = s.totalReturn === worstReturn && worstReturn < 0;
+      html += `
+        <tr>
+          <td>${name}<br><span style="font-size: 10px; color: var(--text-muted); font-weight: 400;">${result.description || ''}</span></td>
+          <td class="${s.totalReturn >= 0 ? (isB ? 'bt-best' : '') : (isW ? 'bt-worst' : '')}"
+              style="color: ${s.totalReturn >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight: 700;">
+            ${s.totalReturn >= 0 ? '+' : ''}${s.totalReturn}%
+          </td>
+          <td style="font-weight: 600;">${s.winRate}%</td>
+          <td>${s.totalTrades}</td>
+          <td style="font-weight: 600; color: ${s.profitFactor >= 1 ? 'var(--green)' : 'var(--red)'};">${s.profitFactor}</td>
+          <td style="color: var(--red);">-${s.maxDrawdownPercent}%</td>
+          <td style="font-weight: 600; color: ${s.sharpeRatio >= 1 ? 'var(--green)' : s.sharpeRatio >= 0 ? 'var(--yellow)' : 'var(--red)'};">${s.sharpeRatio}</td>
+          <td style="font-weight: 700;">$${s.finalEquity.toLocaleString('de-DE')}</td>
+        </tr>
+      `;
+    }
+
+    html += '</tbody></table></div></div>';
+
+    // Detailed cards per strategy
+    for (const [name, result] of entries) {
+      const s = result.stats;
+      const chartId = `chart-${name.replace(/\s+/g, '-').toLowerCase()}`;
+
+      html += `
+        <div class="bt-strategy-card fade-in">
+          <div class="bt-strategy-header">
+            <div>
+              <div class="bt-strategy-name">${name}</div>
+              <div style="font-size: 12px; color: var(--text-muted);">${result.description || ''}</div>
+            </div>
+            <div class="bt-return ${s.totalReturn >= 0 ? 'positive' : 'negative'}">
+              ${s.totalReturn >= 0 ? '+' : ''}${s.totalReturn}%
+            </div>
+          </div>
+
+          <!-- Equity Chart -->
+          <div class="equity-chart"><canvas id="${chartId}"></canvas></div>
+
+          <!-- Stats Grid -->
+          <div class="bt-stats-grid">
+            <div class="bt-stat">
+              <div class="bt-stat-value" style="color: ${s.winRate >= 50 ? 'var(--green)' : 'var(--red)'};">${s.winRate}%</div>
+              <div class="bt-stat-label">Win Rate</div>
+            </div>
+            <div class="bt-stat">
+              <div class="bt-stat-value">${s.totalTrades}</div>
+              <div class="bt-stat-label">Trades</div>
+            </div>
+            <div class="bt-stat">
+              <div class="bt-stat-value" style="color: var(--green);">${s.wins}</div>
+              <div class="bt-stat-label">Gewinner</div>
+            </div>
+            <div class="bt-stat">
+              <div class="bt-stat-value" style="color: var(--red);">${s.losses}</div>
+              <div class="bt-stat-label">Verlierer</div>
+            </div>
+            <div class="bt-stat">
+              <div class="bt-stat-value" style="color: ${s.profitFactor >= 1 ? 'var(--green)' : 'var(--red)'};">${s.profitFactor}</div>
+              <div class="bt-stat-label">Profit Factor</div>
+            </div>
+            <div class="bt-stat">
+              <div class="bt-stat-value" style="color: var(--red);">-${s.maxDrawdownPercent}%</div>
+              <div class="bt-stat-label">Max Drawdown</div>
+            </div>
+            <div class="bt-stat">
+              <div class="bt-stat-value" style="color: ${s.sharpeRatio >= 1 ? 'var(--green)' : 'var(--yellow)'};">${s.sharpeRatio}</div>
+              <div class="bt-stat-label">Sharpe Ratio</div>
+            </div>
+            <div class="bt-stat">
+              <div class="bt-stat-value">${s.sortinoRatio}</div>
+              <div class="bt-stat-label">Sortino Ratio</div>
+            </div>
+            <div class="bt-stat">
+              <div class="bt-stat-value" style="color: var(--green);">+${s.avgWinPercent}%</div>
+              <div class="bt-stat-label">Avg. Win</div>
+            </div>
+            <div class="bt-stat">
+              <div class="bt-stat-value" style="color: var(--red);">${s.avgLossPercent}%</div>
+              <div class="bt-stat-label">Avg. Loss</div>
+            </div>
+            <div class="bt-stat">
+              <div class="bt-stat-value" style="color: var(--green);">${s.maxWinStreak}</div>
+              <div class="bt-stat-label">Max Win Streak</div>
+            </div>
+            <div class="bt-stat">
+              <div class="bt-stat-value" style="color: var(--red);">${s.maxLossStreak}</div>
+              <div class="bt-stat-label">Max Loss Streak</div>
+            </div>
+            <div class="bt-stat">
+              <div class="bt-stat-value">${s.avgHoldingPeriod}d</div>
+              <div class="bt-stat-label">Avg. Haltezeit</div>
+            </div>
+            <div class="bt-stat">
+              <div class="bt-stat-value" style="color: var(--red);">$${s.totalCommissions}</div>
+              <div class="bt-stat-label">Gebuehren</div>
+            </div>
+            <div class="bt-stat">
+              <div class="bt-stat-value">${s.expectancy >= 0 ? '+' : ''}$${s.expectancy}</div>
+              <div class="bt-stat-label">Erwartungswert/Trade</div>
+            </div>
+            <div class="bt-stat">
+              <div class="bt-stat-value">$${s.finalEquity.toLocaleString('de-DE')}</div>
+              <div class="bt-stat-label">Endkapital</div>
+            </div>
+          </div>
+
+          <!-- Trade History -->
+          ${result.trades && result.trades.length > 0 ? `
+            <div style="margin-top: 16px;">
+              <button class="toggle-details" onclick="this.nextElementSibling.classList.toggle('open')">
+                ${result.trades.length} Trades anzeigen
+              </button>
+              <div class="details-content">
+                <div style="overflow-x: auto; margin-top: 8px;">
+                  <div class="bt-trade-row header">
+                    <span>#</span>
+                    <span>Richtung</span>
+                    <span>Einstieg</span>
+                    <span>Ausstieg</span>
+                    <span>Grund</span>
+                    <span>P&L</span>
+                    <span>P&L %</span>
+                  </div>
+                  ${result.trades.map((t, idx) => `
+                    <div class="bt-trade-row">
+                      <span>${idx + 1}</span>
+                      <span style="color: ${t.direction === 'long' ? 'var(--green)' : 'var(--red)'}; font-weight: 600;">${t.direction.toUpperCase()}</span>
+                      <span>$${formatPrice(t.entry)}</span>
+                      <span>$${formatPrice(t.exit)}</span>
+                      <span style="font-size: 11px;">${t.reason}</span>
+                      <span style="color: ${t.pnl >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight: 700;">${t.pnl >= 0 ? '+' : ''}$${t.pnl.toFixed(2)}</span>
+                      <span style="color: ${t.pnlPercent >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight: 700;">${t.pnlPercent >= 0 ? '+' : ''}${t.pnlPercent.toFixed(2)}%</span>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }
+
+    container.innerHTML = html;
+
+    // Draw equity charts after DOM update
+    requestAnimationFrame(() => {
+      for (const [name, result] of entries) {
+        if (result.equityCurve) {
+          const chartId = `chart-${name.replace(/\s+/g, '-').toLowerCase()}`;
+          drawEquityChart(chartId, result.equityCurve, result.drawdownSeries);
+        }
+      }
+    });
+  }
+
+  // ─── Backtest Runner ──────────────────────────────────
+  async function runBacktest(symbol, days, balance, risk) {
+    const container = document.getElementById('backtest-container');
+    showLoading(container);
+
+    try {
+      const candles = await DataAPI.getMarketData(symbol, days);
+      if (!candles || candles.length < 60) {
+        showError(container, `Nicht genug Daten fuer ${symbol}. Nur ${candles ? candles.length : 0} Kerzen verfuegbar (min. 60 benoetigt).`);
+        return;
+      }
+
+      const results = Backtest.runAll(candles, {
+        initialBalance: balance,
+        riskPerTrade: risk
+      });
+
+      const dateRange = {
+        from: new Date(candles[0].time).toLocaleDateString('de-DE'),
+        to: new Date(candles[candles.length - 1].time).toLocaleDateString('de-DE')
+      };
+
+      renderBacktestResults(symbol, results, dateRange);
+    } catch (e) {
+      showError(container, `Backtest fehlgeschlagen: ${e.message}`);
+    }
+  }
+
+  async function runBacktestAll(days, balance, risk) {
+    const container = document.getElementById('backtest-container');
+    showLoading(container);
+
+    const symbols = ['BTC', 'ETH', 'SOL'];
+    let allHtml = '';
+
+    for (const symbol of symbols) {
+      try {
+        const candles = await DataAPI.getMarketData(symbol, days);
+        if (!candles || candles.length < 60) continue;
+
+        const results = Backtest.runAll(candles, { initialBalance: balance, riskPerTrade: risk });
+        const masterResult = results['Master Signal'];
+
+        if (masterResult && masterResult.stats) {
+          const s = masterResult.stats;
+          allHtml += `
+            <div class="card" style="margin-bottom: 12px; cursor: pointer;" onclick="UI.runSingleBacktest('${symbol}')">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <div style="font-size: 18px; font-weight: 800;">${symbol}</div>
+                  <div style="font-size: 12px; color: var(--text-muted);">${candles.length} Kerzen | Master Signal</div>
+                </div>
+                <div style="text-align: right;">
+                  <div style="font-size: 20px; font-weight: 800; color: ${s.totalReturn >= 0 ? 'var(--green)' : 'var(--red)'};">
+                    ${s.totalReturn >= 0 ? '+' : ''}${s.totalReturn}%
+                  </div>
+                  <div style="font-size: 12px; color: var(--text-muted);">
+                    ${s.totalTrades} Trades | WR: ${s.winRate}% | PF: ${s.profitFactor} | Sharpe: ${s.sharpeRatio}
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+      } catch (e) {
+        console.error(`Backtest failed for ${symbol}:`, e);
+      }
+    }
+
+    if (allHtml) {
+      container.innerHTML = `
+        <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">Klicke auf ein Asset fuer den vollstaendigen Backtest</div>
+        ${allHtml}
+      `;
+    } else {
+      showError(container, 'Keine Backtest-Ergebnisse verfuegbar.');
+    }
+  }
+
+  function runSingleBacktest(symbol) {
+    const days = parseInt(document.getElementById('bt-days').value) || 365;
+    const balance = parseFloat(document.getElementById('bt-balance').value) || 10000;
+    const risk = parseFloat(document.getElementById('bt-risk').value) || 2;
+    runBacktest(symbol, days, balance, risk);
+  }
+
   // ─── Initialize ───────────────────────────────────────
   function init() {
     initTabs();
@@ -783,6 +1171,22 @@ const UI = (() => {
     // Refresh button
     document.getElementById('btn-refresh')?.addEventListener('click', runAnalysis);
 
+    // Backtest buttons
+    document.getElementById('btn-backtest')?.addEventListener('click', () => {
+      const symbol = document.getElementById('bt-symbol').value;
+      const days = parseInt(document.getElementById('bt-days').value) || 365;
+      const balance = parseFloat(document.getElementById('bt-balance').value) || 10000;
+      const risk = parseFloat(document.getElementById('bt-risk').value) || 2;
+      runBacktest(symbol, days, balance, risk);
+    });
+
+    document.getElementById('btn-backtest-all')?.addEventListener('click', () => {
+      const days = parseInt(document.getElementById('bt-days').value) || 365;
+      const balance = parseFloat(document.getElementById('bt-balance').value) || 10000;
+      const risk = parseFloat(document.getElementById('bt-risk').value) || 2;
+      runBacktestAll(days, balance, risk);
+    });
+
     // Auto-start analysis
     runAnalysis();
 
@@ -790,7 +1194,7 @@ const UI = (() => {
     setInterval(runAnalysis, 5 * 60 * 1000);
   }
 
-  return { init, runAnalysis };
+  return { init, runAnalysis, runSingleBacktest };
 })();
 
 // Start when DOM is ready
