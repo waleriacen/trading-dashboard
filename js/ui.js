@@ -166,6 +166,11 @@ const UI = (() => {
       const price = data.currentPrice || master.suggestedEntry;
       const change = data.change24h || 0;
 
+      // Regime and filter info
+      const regime = master.regime || {};
+      const filterResults = master.filterResults || {};
+      const pipeline = master.pipeline || [];
+
       html += `
         <div class="signal-card ${signalClass} fade-in">
           <div class="signal-header">
@@ -182,6 +187,33 @@ const UI = (() => {
             </div>
           </div>
 
+          <!-- Regime + Quality Badge -->
+          <div style="display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
+            ${regime.label ? `
+              <span style="font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 700;
+                background: ${regime.color}22; color: ${regime.color}; border: 1px solid ${regime.color}44;">
+                ${regime.label} (${regime.confidence}%)
+              </span>` : ''}
+            ${filterResults.grade ? `
+              <span style="font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 700;
+                background: ${filterResults.gradeColor}22; color: ${filterResults.gradeColor}; border: 1px solid ${filterResults.gradeColor}44;">
+                Qualitaet: ${filterResults.grade} (${filterResults.passRate}%)
+              </span>` : ''}
+          </div>
+
+          <!-- Signal Pipeline -->
+          ${pipeline.length > 0 ? `
+            <div style="display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--text-muted); margin-bottom: 10px;">
+              ${pipeline.map((p, i) => `
+                <span style="padding: 2px 6px; border-radius: 4px; background: var(--bg-secondary);">
+                  ${p.step}: <strong style="color: ${p.value > 0 ? 'var(--green)' : p.value < 0 ? 'var(--red)' : 'var(--yellow)'};">
+                    ${p.value > 0 ? '+' : ''}${p.value}
+                  </strong>
+                </span>
+                ${i < pipeline.length - 1 ? '<span style="color: var(--text-muted);">&#8594;</span>' : ''}
+              `).join('')}
+            </div>` : ''}
+
           <div class="score-meter">
             <div class="score-fill ${getScoreFillClass(master.masterSignal + 50)}"
                  style="width: ${Math.min(100, Math.max(0, master.masterSignal + 50))}%"></div>
@@ -191,6 +223,18 @@ const UI = (() => {
             <span>Konsens: ${master.consensus}%</span>
             <span>${master.bullishCount} Bullish / ${master.bearishCount} Bearish / ${master.neutralCount} Neutral</span>
           </div>
+
+          <!-- Signal Filters -->
+          ${filterResults.filters ? `
+            <button class="toggle-details" data-target="filters-${symbol}">Signal-Filter anzeigen (${filterResults.passCount}/${filterResults.totalFilters} bestanden)</button>
+            <div class="details-content" id="filters-${symbol}">
+              ${filterResults.filters.map(f => `
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 4px 0; font-size: 12px; border-bottom: 1px solid rgba(42,58,78,0.3);">
+                  <span style="color: ${f.pass ? 'var(--green)' : 'var(--red)'};">${f.pass ? '\u2713' : '\u2717'} ${f.name}</span>
+                  <span style="color: var(--text-muted);">${f.value}</span>
+                </div>
+              `).join('')}
+            </div>` : ''}
 
           <!-- Strategies Breakdown -->
           ${master.strategies.map(s => `
@@ -308,7 +352,40 @@ const UI = (() => {
     for (const [symbol, data] of Object.entries(results)) {
       if (!data.masterSignal) continue;
 
+      const regime = data.masterSignal.regime || {};
+      const adaptiveWeights = data.masterSignal.adaptiveWeights || {};
       html += `<h3 style="margin: 20px 0 12px; font-size: 18px;">${symbol} - Strategie-Details</h3>`;
+
+      if (regime.label) {
+        html += `
+          <div class="strategy-detail" style="border-left-color: ${regime.color || 'var(--accent-blue)'}; margin-bottom: 16px;">
+            <div class="strategy-detail-header">
+              <div>
+                <div class="strategy-detail-name">Markt-Regime: ${regime.label}</div>
+                <div class="strategy-detail-desc">Konfidenz: ${regime.confidence}% | Strategie-Gewichte werden automatisch angepasst</div>
+              </div>
+            </div>
+            ${Object.keys(regime.details || {}).length > 0 ? `
+              <div class="strategy-detail-grid">
+                ${Object.entries(regime.details).map(([k, v]) => `
+                  <div class="strategy-detail-item">
+                    <div class="strategy-detail-item-label">${k}</div>
+                    <div class="strategy-detail-item-value">${v}</div>
+                  </div>
+                `).join('')}
+              </div>` : ''}
+            ${Object.keys(adaptiveWeights).length > 0 ? `
+              <div style="margin-top: 12px; font-size: 12px; font-weight: 700; color: var(--text-muted);">ADAPTIVE GEWICHTE</div>
+              <div style="display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap;">
+                ${Object.entries(adaptiveWeights).map(([k, v]) => `
+                  <span style="font-size: 11px; padding: 3px 8px; border-radius: 4px; background: var(--bg-primary);
+                    color: ${v >= 30 ? 'var(--green)' : v >= 15 ? 'var(--yellow)' : 'var(--text-muted)'};">
+                    ${k}: ${v}%
+                  </span>
+                `).join('')}
+              </div>` : ''}
+          </div>`;
+      }
 
       data.masterSignal.strategies.forEach(strat => {
         const borderClass = getStrategyBorderClass(strat.signal);
@@ -720,7 +797,8 @@ const UI = (() => {
       // Fetch current prices
       const prices = await DataAPI.getCurrentPrices(selectedAssets);
 
-      // Analyze each asset
+      // Analyze each asset with adaptive intelligence
+      const allCandles = {};
       for (const symbol of selectedAssets) {
         try {
           const candles = await DataAPI.getMarketData(symbol, 100);
@@ -729,11 +807,14 @@ const UI = (() => {
             continue;
           }
 
-          const masterSignal = Strategies.generateMasterSignal(candles);
+          allCandles[symbol] = candles;
+
+          // Use enhanced signal pipeline (regime-aware + filtered)
+          const enhancedSignal = Adaptive.generateEnhancedSignal(candles);
           const priceData = prices[symbol] || {};
 
           results[symbol] = {
-            masterSignal,
+            masterSignal: enhancedSignal,
             candles,
             currentPrice: priceData.price || candles[candles.length - 1].close,
             change24h: priceData.change24h || 0,
@@ -743,6 +824,22 @@ const UI = (() => {
         } catch (e) {
           console.error(`Error analyzing ${symbol}:`, e);
           results[symbol] = { error: e.message };
+        }
+      }
+
+      // Cross-asset correlation analysis
+      let correlationMatrix = null;
+      let correlationWarnings = null;
+      if (Object.keys(allCandles).length >= 2) {
+        try {
+          correlationMatrix = Adaptive.buildCorrelationMatrix(allCandles);
+          const signalMap = {};
+          for (const [sym, data] of Object.entries(results)) {
+            if (data.masterSignal) signalMap[sym] = data.masterSignal.masterSignal;
+          }
+          correlationWarnings = Adaptive.analyzePortfolioCorrelation(correlationMatrix, signalMap);
+        } catch (e) {
+          console.warn('Correlation analysis failed:', e);
         }
       }
 
